@@ -9,8 +9,8 @@ Contact = {}
 while True:
     a = input("What do you want to do?(Choose Between 1-6)").strip()
     if a == "1":
-        Add_name = input("Type the name: ")
-        Add_num = input("Type the number: ")
+        Add_name = input("Type the name you want to add: ")
+        Add_num = input("Type the number you want to add: ")
         Contact[Add_name] = Add_num
         print("Contact Number Added Successfully")
         print(f"Name: {Add_name}\nNumber: {Add_num}")
@@ -26,18 +26,19 @@ while True:
             print(f"Name: {name}, Numbers: {number}")
         # print(Contact.items())
     elif a == "4":
-        Edit_contact = input("Type the name of the contact to edit:")
-        # Updated_num = input("Edit the number: ")
+        Edit_contact = input("Type the name of the contact to edit: ")
         if Edit_contact in Contact:
-            print("Yes, the contact exists")
-            Updated_num = input("Edit the number: ")
-            Contact[Edit_contact]=Updated_num
-            print("Contact has been edited successfully")
-            # print(Contact[Edit_contact])
-            #only to display the particular contact
-            #edit the name also
+            print(f"Yes, the contact '{Edit_contact}' exists.")
+            new_name = input("Enter the new name (press Enter to keep the same): ").strip()
+            new_number = input("Enter the new number (press Enter to keep the same): ").strip()
+            if new_name:
+                Contact[new_name] = Contact.pop(Edit_contact)  # Change key name
+            if new_number:
+                Contact[new_name if new_name else Edit_contact] = new_number
+            print("Contact has been edited successfully!")
         else:
-            print("Contact not found")
+            print("Contact not found!")
+
     elif a == "5":
         del_contact = input("Type the name to delete the contact: ")
         if del_contact in Contact:

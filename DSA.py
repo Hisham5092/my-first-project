@@ -553,47 +553,120 @@ from operator import index
 
 #BST finding minimum value
 
-class TreeNode:
-  def __init__(self, data):
-    self.data = data
-    self.left = None
-    self.right = None
+# class TreeNode:
+#   def __init__(self, data):
+#     self.data = data
+#     self.left = None
+#     self.right = None
+#
+# def inOrderTraversal(node):
+#   if node is None:
+#     return
+#   inOrderTraversal(node.left)
+#   print(node.data, end=", ")
+#   inOrderTraversal(node.right)
+#
+# def minValueNode(node):
+#   current = node
+#   while current.left is not None:
+#     current = current.left
+#   return current
+#
+# root = TreeNode(13)
+# node7 = TreeNode(7)
+# node15 = TreeNode(15)
+# node3 = TreeNode(3)
+# node8 = TreeNode(8)
+# node14 = TreeNode(14)
+# node19 = TreeNode(19)
+# node18 = TreeNode(18)
+#
+# root.left = node7
+# root.right = node15
+#
+# node7.left = node3
+# node7.right = node8
+#
+# node15.left = node14
+# node15.right = node19
+#
+# node19.left = node18
+#
+# # Traverse
+# inOrderTraversal(root)
+#
+# # Find Lowest
+# print("\nLowest value:",minValueNode(root).data)
 
-def inOrderTraversal(node):
-  if node is None:
-    return
-  inOrderTraversal(node.left)
-  print(node.data, end=", ")
-  inOrderTraversal(node.right)
+#Linear Search
 
-def minValueNode(node):
-  current = node
-  while current.left is not None:
-    current = current.left
-  return current
+# def linear_search(arr, target):
+#     for i in range(len(arr)):
+#         if arr[i] == target:
+#             return i
+#     return -1
+#
+# mylist = [1, 4, 5, 6, 7, 9]
+# x = 9
+# result = linear_search(mylist,x)
+#
+# if result != -1:
+#     print("Index found", result)
+# else:
+#     print("Index not found")
 
-root = TreeNode(13)
-node7 = TreeNode(7)
-node15 = TreeNode(15)
-node3 = TreeNode(3)
-node8 = TreeNode(8)
-node14 = TreeNode(14)
-node19 = TreeNode(19)
-node18 = TreeNode(18)
+#Binary Search
 
-root.left = node7
-root.right = node15
+# def binary_search (arr, target):
+#     left = 0
+#     right = len(arr) - 1
+#
+#     while left <= right:
+#         mid = (left + right) // 2
+#
+#         if arr[mid] == target:
+#             return mid
+#         if arr[mid] < target:
+#             left  = mid + 1
+#         else:
+#             right = mid - 1
+#     return -1
+#
+# mylist = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+# x = 11
+#
+# result = binary_search(mylist, x)
+#
+# if result != -1:
+#   print("Found at index", result)
+# else:
+#   print("Not found")
 
-node7.left = node3
-node7.right = node8
 
-node15.left = node14
-node15.right = node19
+#Bubble Sort
+# mylist = [64, 34, 25, 12, 22, 11, 90, 5]
+# n = len(mylist)
+#
+# for i in range (n - 1):
+#     for j in range (n-1-i):
+#         if mylist [j] > mylist [j+1]:
+#             mylist [j], mylist [j + 1] = mylist [j + 1], mylist [j]
+#
+#
+# print(mylist)
 
-node19.left = node18
+#Bubble Sort Optimization
 
-# Traverse
-inOrderTraversal(root)
+# mylist = [54, 34, 25, 12, 22, 11, 90, 5]
+#
+# n =len(mylist)
+# for i in range(n-1):
+#     swapped = False
+#     for j in range (n-1-i):
+#         if mylist[j] > mylist[j + 1]:
+#             mylist [j], mylist [j + 1] = mylist [j + 1], mylist [j]
+#             swapped = True
+#     if not swapped:
+#         break
+# print(mylist)
 
-# Find Lowest
-print("\nLowest value:",minValueNode(root).data)

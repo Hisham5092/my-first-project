@@ -694,17 +694,45 @@ from operator import index
 #     mylist [i], mylist [min_index] = mylist [min_index], mylist [i]
 # print(mylist)
 
-#Insertion Sort
-mylist = [54, 34, 25, 12, 22, 11, 90, 5]
-n = len(mylist)
+# #Insertion Sort
+# mylist = [54, 34, 25, 12, 22, 11, 90, 5]
+# n = len(mylist)
+#
+# for i in range (1,n):
+#     insert_index = i
+#     current_value = mylist.pop(i)
+#     for j in range (i-1, -1, -1):
+#         if mylist [j] > current_value:
+#             insert_index = j
+#
+#     mylist.insert(insert_index, current_value)
+#
+# print(mylist)
 
-for i in range (1,n):
-    insert_index = i
-    current_value = mylist.pop(i)
-    for j in range (i-1, -1, -1):
-        if mylist [j] > current_value:
-            insert_index = j
+#Quick Sort
 
-    mylist.insert(insert_index, current_value)
+def partition (arr, left,right):
+    i = left
+    j = right -1
+    pivot = arr [right]
+    while i < j:
+        while i < right and arr[i] < pivot:
+            i += 1
+        while j > left and arr[j] >= pivot:
+            j -= 1
+        if i < j :
+            arr[i], arr[j] = arr[j], arr[i]
 
-print(mylist)
+    if arr[i] > pivot:
+        arr[i], arr[right] = arr[right], arr[i]
+    return i
+
+def quicksort (arr, left, right):
+    if left < right:
+        partition_pos = partition(arr, left, right)
+        quicksort(arr, left, partition_pos - 1)
+        quicksort(arr, partition_pos + 1, right)
+
+arr = [22, 11, 88, 66, 55, 77, 33, 44]
+quicksort(arr, 0, len(arr) - 1)
+print(arr)

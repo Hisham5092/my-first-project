@@ -711,28 +711,61 @@ from operator import index
 
 #Quick Sort
 
-def partition (arr, left,right):
-    i = left
-    j = right -1
-    pivot = arr [right]
-    while i < j:
-        while i < right and arr[i] < pivot:
+# def partition (arr, left,right):
+#     i = left
+#     j = right -1
+#     pivot = arr [right]
+#     while i < j:
+#         while i < right and arr[i] < pivot:
+#             i += 1
+#         while j > left and arr[j] >= pivot:
+#             j -= 1
+#         if i < j :
+#             arr[i], arr[j] = arr[j], arr[i]
+#
+#     if arr[i] > pivot:
+#         arr[i], arr[right] = arr[right], arr[i]
+#     return i
+#
+# def quicksort (arr, left, right):
+#     if left < right:
+#         partition_pos = partition(arr, left, right)
+#         quicksort(arr, left, partition_pos - 1)
+#         quicksort(arr, partition_pos + 1, right)
+#
+# arr = [22, 11, 88, 66, 55, 77, 33, 44]
+# quicksort(arr, 0, len(arr) - 1)
+# print(arr)
+
+#Merge Sort
+
+def merge_sort (arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
+
+    sorted_left = merge_sort(left_half)
+    sorted_right = merge_sort(right_half)
+
+    return merge (sorted_left, sorted_right)
+
+def merge (left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
             i += 1
-        while j > left and arr[j] >= pivot:
-            j -= 1
-        if i < j :
-            arr[i], arr[j] = arr[j], arr[i]
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
 
-    if arr[i] > pivot:
-        arr[i], arr[right] = arr[right], arr[i]
-    return i
-
-def quicksort (arr, left, right):
-    if left < right:
-        partition_pos = partition(arr, left, right)
-        quicksort(arr, left, partition_pos - 1)
-        quicksort(arr, partition_pos + 1, right)
-
-arr = [22, 11, 88, 66, 55, 77, 33, 44]
-quicksort(arr, 0, len(arr) - 1)
-print(arr)
+mylist = [3, 7, 6, -10, 15, 23.5, 55, -13]
+mysortedlist = merge_sort(mylist)
+print("Sorted array:", mysortedlist)

@@ -739,33 +739,62 @@ from operator import index
 
 #Merge Sort
 
-def merge_sort (arr):
-    if len(arr) <= 1:
-        return arr
-    mid = len(arr) // 2
-    left_half = arr[:mid]
-    right_half = arr[mid:]
+# def merge_sort (arr):
+#     if len(arr) <= 1:
+#         return arr
+#     mid = len(arr) // 2
+#     left_half = arr[:mid]
+#     right_half = arr[mid:]
+#
+#     sorted_left = merge_sort(left_half)
+#     sorted_right = merge_sort(right_half)
+#
+#     return merge (sorted_left, sorted_right)
+#
+# def merge (left, right):
+#     result = []
+#     i = j = 0
+#
+#     while i < len(left) and j < len(right):
+#         if left[i] < right[j]:
+#             result.append(left[i])
+#             i += 1
+#         else:
+#             result.append(right[j])
+#             j += 1
+#     result.extend(left[i:])
+#     result.extend(right[j:])
+#     return result
+#
+# mylist = [3, 7, 6, -10, 15, 23.5, 55, -13]
+# mysortedlist = merge_sort(mylist)
+# print("Sorted array:", mysortedlist)
 
-    sorted_left = merge_sort(left_half)
-    sorted_right = merge_sort(right_half)
+#Heap Sort
+def heapify (arr, n , i):
+    left = 2 * i + 1
+    right = 2 * i + 2
+    largest = i
 
-    return merge (sorted_left, sorted_right)
+    if left < n and arr[left] > arr[largest]:
+        largest = left
 
-def merge (left, right):
-    result = []
-    i = j = 0
+    if right < n and arr[right] > arr[largest]:
+        largest = right
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
 
-    while i < len(left) and j < len(right):
-        if left[i] < right[j]:
-            result.append(left[i])
-            i += 1
-        else:
-            result.append(right[j])
-            j += 1
-    result.extend(left[i:])
-    result.extend(right[j:])
-    return result
+def heap_sort (arr):
+    n = len(arr)
 
-mylist = [3, 7, 6, -10, 15, 23.5, 55, -13]
-mysortedlist = merge_sort(mylist)
-print("Sorted array:", mysortedlist)
+    for i in range (n//2 -1, -1, -1):
+        heapify(arr, n, i)
+
+    for i in range (n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+
+arr = [3, 7, 6, -10, 15, 23.5, 55, -13]
+heap_sort(arr)
+print("Sorted array:", arr)

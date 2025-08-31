@@ -771,30 +771,104 @@ from operator import index
 # print("Sorted array:", mysortedlist)
 
 #Heap Sort
-def heapify (arr, n , i):
-    left = 2 * i + 1
-    right = 2 * i + 2
-    largest = i
+# def heapify (arr, n , i):
+#     left = 2 * i + 1
+#     right = 2 * i + 2
+#     largest = i
+#
+#     if left < n and arr[left] > arr[largest]:
+#         largest = left
+#
+#     if right < n and arr[right] > arr[largest]:
+#         largest = right
+#     if largest != i:
+#         arr[i], arr[largest] = arr[largest], arr[i]
+#         heapify(arr, n, largest)
+#
+# def heap_sort (arr):
+#     n = len(arr)
+#
+#     for i in range (n//2 -1, -1, -1):
+#         heapify(arr, n, i)
+#
+#     for i in range (n-1, 0, -1):
+#         arr[i], arr[0] = arr[0], arr[i]
+#         heapify(arr, i, 0)
+#
+# arr = [3, 7, 6, -10, 15, 23.5, 55, -13]
+# heap_sort(arr)
+# print("Sorted array:", arr)
 
-    if left < n and arr[left] > arr[largest]:
-        largest = left
+# Adjacency Matrix Representation
+#
+# nodes = ["A", "B", "C", "D", "E"]
+# n = len(nodes)
+#
+# # Create 5x5 matrix initialized with 0
+# adj_matrix = [[0] * n for _ in range(n)]
+#adj = []
+# for i in range(n):
+#     adj.append([0] * n)
+# # Add edges
+# edges = [("A", "B"), ("A", "C"), ("B", "C"),
+#          ("B", "D"), ("C", "D"), ("C", "E")]
+#
+# for u, v in edges:
+#     i, j = nodes.index(u), nodes.index(v)
+#     adj_matrix[i][j] = 1
+#     adj_matrix[j][i] = 1   # undirected graph
+#
+# # Print matrix
+# for row in adj_matrix:
+#     print(row)
 
-    if right < n and arr[right] > arr[largest]:
-        largest = right
-    if largest != i:
-        arr[i], arr[largest] = arr[largest], arr[i]
-        heapify(arr, n, largest)
+# Adjacency List Representation
 
-def heap_sort (arr):
-    n = len(arr)
+# graph = {
+#     "A": ["B", "C"],
+#     "B": ["A", "C", "D"],
+#     "C": ["A", "B", "D", "E"],
+#     "D": ["B", "C"],
+#     "E": ["C"]
+# }
+#
+# # Print adjacency list
+# for node, neighbors in graph.items():
+#     print(node, ":", neighbors)
 
-    for i in range (n//2 -1, -1, -1):
-        heapify(arr, n, i)
 
-    for i in range (n-1, 0, -1):
-        arr[i], arr[0] = arr[0], arr[i]
-        heapify(arr, i, 0)
+# Edge List Representation
+# edges = [("A", "B"), ("A", "C"), ("B", "C"),
+#          ("B", "D"), ("C", "D"), ("C", "E")]
+#
+# print("Edges in the graph:")
+# for edge in edges:
+#     print(edge)
 
-arr = [3, 7, 6, -10, 15, 23.5, 55, -13]
-heap_sort(arr)
-print("Sorted array:", arr)
+# Adjacency Matrix Representation
+
+vertex = ['A', 'B', 'C', 'D']
+
+adjacency_matrix = [
+    [0,1,1,1],
+    [1,0,1,0],
+    [1,1,0,0],
+    [1,0,0,0]
+]
+
+def print_matrix (matrix):
+    print("\nAdjacency Matrix:")
+    for row in matrix:
+        print(row)
+
+def print_connections (matrix, vertices):
+    print("\nConnections for each vertex:")
+    for i in range(len(vertices)):
+        print(f"{vertices[i]}: ", end="")
+        for j in range(len(vertices)):
+            if matrix[i][j]:
+                print(vertices[j], end="")
+        print()
+print_matrix(adjacency_matrix)
+print_connections(adjacency_matrix, vertex)
+

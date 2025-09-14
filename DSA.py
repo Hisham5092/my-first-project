@@ -1273,7 +1273,375 @@ from operator import index
 #
 # print("Graph has cycle:", g.is_cyclic())
 
-# Dijkstra's Algorithm
+# # Dijkstra's Algorithm
+#
+# class Graph:
+#     def __init__(self, size):
+#         self.adj_matrix = [[0] * size for _ in range(size)]
+#         self.size = size
+#         self.vertex_data = [''] * size
+#
+#     def add_edge(self, u, v, weight):
+#         if 0 <= u < self.size and 0 <= v < self.size:
+#             self.adj_matrix[u][v] = weight
+#             self.adj_matrix[v][u] = weight  # For undirected graph
+#
+#     def add_vertex_data(self, vertex, data):
+#         if 0 <= vertex < self.size:
+#             self.vertex_data[vertex] = data
+#
+#     def dijkstra (self, start_vertex_data):
+#         start_vertex = self.vertex_data.index(start_vertex_data)
+#         distances = [float('inf')] * self.size
+#         distances[start_vertex] = 0
+#         visited = [False] * self.size
+#
+#         for _ in range(self.size):
+#             min_distance = float('inf')
+#             u = None
+#             for i in range (self.size):
+#                 if not visited [i] and distances[i] < min_distance:
+#                     min_distance = distances[i]
+#                     u = i
+#             if u is None:
+#                 break
+#
+#             visited[u] = True
+#
+#             for v in range (self.size):
+#                 if self.adj_matrix [u][v] != 0  and not visited [v]:
+#                     alt = distances[u] + self.adj_matrix [u][v]
+#                     if alt < distances [v]:
+#                         distances[v] = alt
+#
+#         return distances
+#
+# g = Graph(7)
+#
+# g.add_vertex_data(0, 'A')
+# g.add_vertex_data(1, 'B')
+# g.add_vertex_data(2, 'C')
+# g.add_vertex_data(3, 'D')
+# g.add_vertex_data(4, 'E')
+# g.add_vertex_data(5, 'F')
+# g.add_vertex_data(6, 'G')
+#
+# g.add_edge(3, 0, 4)  # D - A, weight 5
+# g.add_edge(3, 4, 2)  # D - E, weight 2
+# g.add_edge(0, 2, 3)  # A - C, weight 3
+# g.add_edge(0, 4, 4)  # A - E, weight 4
+# g.add_edge(4, 2, 4)  # E - C, weight 4
+# g.add_edge(4, 6, 5)  # E - G, weight 5
+# g.add_edge(2, 5, 5)  # C - F, weight 5
+# g.add_edge(2, 1, 2)  # C - B, weight 2
+# g.add_edge(1, 5, 2)  # B - F, weight 2
+# g.add_edge(6, 5, 5)  # G - F, weight 5
+#
+# # Dijkstra's algorithm from D to all vertices
+# print("Dijkstra's Algorithm starting from vertex D:\n")
+# distances = g.dijkstra('D')
+# for i, d in enumerate(distances):
+#     print(f"Shortest distance from D to {g.vertex_data[i]}: {d}")
+
+# Returning The Paths from Dijkstra's Algorithm
+
+# class Graph:
+#     def __init__(self, size):
+#         self.adj_matrix = [[0] * size for _ in range(size)]
+#         self.size = size
+#         self.vertex_data = [''] * size
+#
+#     def add_edge(self,u,v,weight):
+#         if 0 <= u < self.size and 0 <= v < self.size:
+#             self.adj_matrix [u][v] = weight
+#             self.adj_matrix [v][u] = weight #undirected graph
+#
+#     def add_vertex_data(self,vertex,data):
+#         if 0 <= vertex < self.size:
+#             self.vertex_data [vertex] = data
+#
+#     def dijkstra (self, start_vertex_data):
+#         start_vertex = self.vertex_data.index(start_vertex_data)
+#         distances = [float("inf")] * self.size
+#         predecessor = [None] * self.size
+#         distances[start_vertex] = 0
+#         visited = [False] * self.size
+#         for i in range (self.size):
+#             min_distance = float("inf")
+#             u = None
+#             for i in range (self.size):
+#                 if not visited [i] and distances[i] < min_distance :
+#                     min_distance = distances[i]
+#                     u = i
+#             if u is None:
+#                 break
+#             visited[u] = True
+#             for v in range (self.size):
+#                 if self.adj_matrix [u][v] != 0 and not visited[v]:
+#                     alt = distances [u] + self.adj_matrix [u][v]
+#                     if alt < distances[v]:
+#                         distances[v] = alt
+#                         predecessor[v] = u
+#
+#         return distances, predecessor
+#
+#     def get_path (self,predecessor, start_vertex, end_vertex):
+#         path =[]
+#         current = self.vertex_data.index(end_vertex)
+#         while current is not None:
+#             path.insert(0, self.vertex_data[current])
+#             current = predecessor[current]
+#             if current == self.vertex_data.index(start_vertex):
+#                 path.insert(0, start_vertex)
+#                 break
+#         return '->'.join(path)
+#
+#
+# g = Graph(7)
+#
+# g.add_vertex_data(0, 'A')
+# g.add_vertex_data(1, 'B')
+# g.add_vertex_data(2, 'C')
+# g.add_vertex_data(3, 'D')
+# g.add_vertex_data(4, 'E')
+# g.add_vertex_data(5, 'F')
+# g.add_vertex_data(6, 'G')
+#
+# g.add_edge(3, 0, 4)  # D - A, weight 5
+# g.add_edge(3, 4, 2)  # D - E, weight 2
+# g.add_edge(0, 2, 3)  # A - C, weight 3
+# g.add_edge(0, 4, 4)  # A - E, weight 4
+# g.add_edge(4, 2, 4)  # E - C, weight 4
+# g.add_edge(4, 6, 5)  # E - G, weight 5
+# g.add_edge(2, 5, 5)  # C - F, weight 5
+# g.add_edge(2, 1, 2)  # C - B, weight 2
+# g.add_edge(1, 5, 2)  # B - F, weight 2
+# g.add_edge(6, 5, 5)  # G - F, weight 5
+#
+# # Dijkstra's algorithm from D to all vertices
+# print("Dijkstra's Algorithm starting from vertex D:\n")
+# distances, predecessor = g.dijkstra('D')
+# for i, d in enumerate(distances):
+#     path = g.get_path(predecessor, 'D', g.vertex_data[i])
+#     print(f"{path}, Distance: {d}")
+
+# Dijkstra's Algorithm with a Single Destination Vertex
+# class Graph:
+#     def __init__(self, size):
+#         self.adj_matrix = [[0] * size for _ in range(size)]
+#         self.size = size
+#         self.vertex_data = [''] * size
+#
+#     def add_edge(self, u, v, weight):
+#         if 0 <= u < self.size and 0 <= v < self.size:
+#             self.adj_matrix[u][v] = weight
+#             self.adj_matrix[v][u] = weight  # For undirected graph
+#
+#     def add_vertex_data(self, vertex, data):
+#         if 0 <= vertex < self.size:
+#             self.vertex_data[vertex] = data
+#
+#     def dijkstra(self, start_vertex_data, end_vertex_data):
+#         start_vertex = self.vertex_data.index(start_vertex_data)
+#         end_vertex = self.vertex_data.index(end_vertex_data)
+#         distances = [float('inf')] * self.size
+#         predecessors = [None] * self.size
+#         distances[start_vertex] = 0
+#         visited = [False] * self.size
+#
+#         for _ in range(self.size):
+#             min_distance = float('inf')
+#             u = None
+#             for i in range(self.size):
+#                 if not visited[i] and distances[i] < min_distance:
+#                     min_distance = distances[i]
+#                     u = i
+#
+#             if u is None or u == end_vertex:
+#                 print(f"Breaking out of loop. Current vertex: {self.vertex_data[u]}")
+#                 print(f"Distances: {distances}")
+#                 break
+#
+#             visited[u] = True
+#             print(f"Visited vertex: {self.vertex_data[u]}")
+#
+#             for v in range(self.size):
+#                 if self.adj_matrix[u][v] != 0 and not visited[v]:
+#                     alt = distances[u] + self.adj_matrix[u][v]
+#                     if alt < distances[v]:
+#                         distances[v] = alt
+#                         predecessors[v] = u
+#
+#         return distances[end_vertex], self.get_path(predecessors, start_vertex_data, end_vertex_data)
+#
+#     def get_path(self, predecessors, start_vertex, end_vertex):
+#         path = []
+#         current = self.vertex_data.index(end_vertex)
+#         while current is not None:
+#             path.insert(0, self.vertex_data[current])
+#             current = predecessors[current]
+#             if current == self.vertex_data.index(start_vertex):
+#                 path.insert(0, start_vertex)
+#                 break
+#         return '->'.join(path)  # Join the vertices with '->'
+#
+# g = Graph(10)
+#
+# g.add_vertex_data(0, 'A')
+# g.add_vertex_data(1, 'B')
+# g.add_vertex_data(2, 'C')
+# g.add_vertex_data(3, 'D')
+# g.add_vertex_data(4, 'E')
+# g.add_vertex_data(5, 'F')
+# g.add_vertex_data(6, 'G')
+# g.add_vertex_data(7, 'H')
+# g.add_vertex_data(8, 'I')
+# g.add_vertex_data(9, 'J')
+#
+# g.add_edge(3, 0, 4)  # D - A, weight 5
+# g.add_edge(3, 4, 2)  # D - E, weight 2
+# g.add_edge(0, 2, 3)  # A - C, weight 3
+# g.add_edge(0, 4, 4)  # A - E, weight 4
+# g.add_edge(4, 2, 4)  # E - C, weight 4
+# g.add_edge(4, 6, 5)  # E - G, weight 5
+# g.add_edge(2, 5, 5)  # C - F, weight 5
+# g.add_edge(2, 1, 2)  # C - B, weight 2
+# g.add_edge(1, 5, 2)  # B - F, weight 2
+# g.add_edge(6, 5, 5)  # G - F, weight 5
+# g.add_edge(6, 8, 4)  # G - I, weight 4
+# g.add_edge(6, 7, 5)  # G - H, weight 5
+# g.add_edge(8, 9, 2)  # I - J, weight 2
+#
+# print("Dijkstra's Algorithm, from vertex D to F:\n")
+# distance, path = g.dijkstra('D','F')
+# print(f"Path: {path}, Distance: {distance}")
+
+# Bellman-Ford Algorithm
+# class Graph:
+#     def __init__(self, size):
+#         self.adj_matrix = [[0] * size for _ in range(size)]
+#         self.size = size
+#         self.vertex_data = [''] * size
+#
+#     def add_edge(self, u, v, weight):
+#         if 0 <= u < self.size and 0 <= v < self.size:
+#             self.adj_matrix[u][v] = weight
+#             # self.adj_matrix[v][u] = weight  # For undirected graph
+#
+#     def add_vertex_data(self, vertex, data):
+#         if 0 <= vertex < self.size:
+#             self.vertex_data[vertex] = data
+#
+#     def bellman_ford(self, start_vertex_data):
+#         start_vertex = self.vertex_data.index(start_vertex_data)
+#         distances = [float('inf')] * self.size
+#         distances[start_vertex] = 0
+#
+#         for i in range(self.size - 1):
+#             for u in range(self.size):
+#                 for v in range(self.size):
+#                     if self.adj_matrix[u][v] != 0:
+#                         if distances[u] + self.adj_matrix[u][v] < distances[v]:
+#                             distances[v] = distances[u] + self.adj_matrix[u][v]
+#                             print(
+#                                 f"Relaxing edge {self.vertex_data[u]}->{self.vertex_data[v]}, Updated distance to {self.vertex_data[v]}: {distances[v]}")
+#
+#         return distances
+#
+#
+# g = Graph(5)
+#
+# g.add_vertex_data(0, 'A')
+# g.add_vertex_data(1, 'B')
+# g.add_vertex_data(2, 'C')
+# g.add_vertex_data(3, 'D')
+# g.add_vertex_data(4, 'E')
+#
+# g.add_edge(3, 0, 4)  # D -> A, weight 4
+# g.add_edge(3, 2, 7)  # D -> C, weight 7
+# g.add_edge(3, 4, 3)  # D -> E, weight 3
+# g.add_edge(0, 2, 4)  # A -> C, weight 4
+# g.add_edge(2, 0, -3)  # C -> A, weight -3
+# g.add_edge(0, 4, 5)  # A -> E, weight 5
+# g.add_edge(4, 2, 3)  # E -> C, weight 3
+# g.add_edge(1, 2, -4)  # B -> C, weight -4
+# g.add_edge(4, 1, 2)  # E -> B, weight 2
+#
+# # Running the Bellman-Ford algorithm from D to all vertices
+# print("\nThe Bellman-Ford Algorithm starting from vertex D:")
+# distances = g.bellman_ford('D')
+# for i, d in enumerate(distances):
+#     print(f"Distance from D to {g.vertex_data[i]}: {d}")
+
+# Negative Cycles in the Bellman-Ford Algorithm
+# class Graph:
+#     def __init__(self, size):
+#         self.adj_matrix = [[0] * size for _ in range(size)]
+#         self.size = size
+#         self.vertex_data = [''] * size
+#
+#     def add_edge(self, u, v, weight):
+#         if 0 <= u < self.size and 0 <= v < self.size:
+#             self.adj_matrix[u][v] = weight
+#             # self.adj_matrix[v][u] = weight  # For undirected graph
+#
+#     def add_vertex_data(self, vertex, data):
+#         if 0 <= vertex < self.size:
+#             self.vertex_data[vertex] = data
+#
+#     def bellman_ford(self, start_vertex_data):
+#         start_vertex = self.vertex_data.index(start_vertex_data)
+#         distances = [float('inf')] * self.size
+#         distances[start_vertex] = 0
+#
+#         for i in range(self.size - 1):
+#             for u in range(self.size):
+#                 for v in range(self.size):
+#                     if self.adj_matrix[u][v] != 0:
+#                         if distances[u] + self.adj_matrix[u][v] < distances[v]:
+#                             distances[v] = distances[u] + self.adj_matrix[u][v]
+#                             print(
+#                                 f"Relaxing edge {self.vertex_data[u]}->{self.vertex_data[v]}, Updated distance to {self.vertex_data[v]}: {distances[v]}")
+#
+#         # Negative cycle detection
+#         for u in range(self.size):
+#             for v in range(self.size):
+#                 if self.adj_matrix[u][v] != 0:
+#                     if distances[u] + self.adj_matrix[u][v] < distances[v]:
+#                         return (True, None)  # Indicate a negative cycle was found
+#
+#         return (False, distances)  # Indicate no negative cycle and return distances
+#
+#
+# g = Graph(5)
+#
+# g.add_vertex_data(0, 'A')
+# g.add_vertex_data(1, 'B')
+# g.add_vertex_data(2, 'C')
+# g.add_vertex_data(3, 'D')
+# g.add_vertex_data(4, 'E')
+#
+# g.add_edge(3, 0, 4)  # D -> A, weight 4
+# g.add_edge(3, 2, 7)  # D -> C, weight 7
+# g.add_edge(3, 4, 3)  # D -> E, weight 3
+# g.add_edge(0, 2, 4)  # A -> C, weight 4
+# g.add_edge(2, 0, -9)  # C -> A, weight -9
+# g.add_edge(0, 4, 5)  # A -> E, weight 5
+# g.add_edge(4, 2, 3)  # E -> C, weight 3
+# g.add_edge(1, 2, -4)  # B -> C, weight -4
+# g.add_edge(4, 1, 2)  # E -> B, weight 2
+#
+# # Running the Bellman-Ford algorithm from D to all vertices
+# print("\nThe Bellman-Ford Algorithm starting from vertex D:")
+# negative_cycle, distances = g.bellman_ford('D')
+# if not negative_cycle:
+#     for i, d in enumerate(distances):
+#         print(f"Distance from D to {g.vertex_data[i]}: {d}")
+# else:
+#     print("Negative weight cycle detected. Cannot compute shortest paths.")
+
+
+# Returning The Paths from The Bellman-Ford Algorithm
 
 class Graph:
     def __init__(self, size):
@@ -1284,65 +1652,76 @@ class Graph:
     def add_edge(self, u, v, weight):
         if 0 <= u < self.size and 0 <= v < self.size:
             self.adj_matrix[u][v] = weight
-            self.adj_matrix[v][u] = weight  # For undirected graph
+            # self.adj_matrix[v][u] = weight  # For undirected graph
 
     def add_vertex_data(self, vertex, data):
         if 0 <= vertex < self.size:
             self.vertex_data[vertex] = data
 
-    def dijkstra (self, start_vertex_data):
+    def bellman_ford(self, start_vertex_data):
         start_vertex = self.vertex_data.index(start_vertex_data)
         distances = [float('inf')] * self.size
+        predecessors = [None] * self.size
         distances[start_vertex] = 0
-        visited = [False] * self.size
 
-        for _ in range(self.size):
-            min_distance = float('inf')
-            u = None
-            for i in range (self.size):
-                if not visited [i] and distances[i] < min_distance:
-                    min_distance = distances[i]
-                    u = i
-            if u is None:
+        for i in range(self.size - 1):
+            for u in range(self.size):
+                for v in range(self.size):
+                    if self.adj_matrix[u][v] != 0:
+                        if distances[u] + self.adj_matrix[u][v] < distances[v]:
+                            distances[v] = distances[u] + self.adj_matrix[u][v]
+                            predecessors[v] = u
+                            print(
+                                f"Relaxing edge {self.vertex_data[u]}->{self.vertex_data[v]}, Updated distance to {self.vertex_data[v]}: {distances[v]}")
+
+        # Negative cycle detection
+        for u in range(self.size):
+            for v in range(self.size):
+                if self.adj_matrix[u][v] != 0:
+                    if distances[u] + self.adj_matrix[u][v] < distances[v]:
+                        return (True, None, None)  # Indicate a negative cycle was found
+
+        return (False, distances, predecessors)  # Indicate no negative cycle and return distances
+
+    def get_path(self, predecessors, start_vertex, end_vertex):
+        path = []
+        current = self.vertex_data.index(end_vertex)
+        while current is not None:
+            path.insert(0, self.vertex_data[current])
+            current = predecessors[current]
+            if current == self.vertex_data.index(start_vertex):
+                path.insert(0, start_vertex)
                 break
+        return '->'.join(path)
 
-            visited[u] = True
 
-            for v in range (self.size):
-                if self.adj_matrix [u][v] != 0  and not visited [v]:
-                    alt = distances[u] + self.adj_matrix [u][v]
-                    if alt < distances [v]:
-                        distances[v] = alt
-
-        return distances
-
-g = Graph(7)
+g = Graph(5)
 
 g.add_vertex_data(0, 'A')
 g.add_vertex_data(1, 'B')
 g.add_vertex_data(2, 'C')
 g.add_vertex_data(3, 'D')
 g.add_vertex_data(4, 'E')
-g.add_vertex_data(5, 'F')
-g.add_vertex_data(6, 'G')
 
-g.add_edge(3, 0, 4)  # D - A, weight 5
-g.add_edge(3, 4, 2)  # D - E, weight 2
-g.add_edge(0, 2, 3)  # A - C, weight 3
-g.add_edge(0, 4, 4)  # A - E, weight 4
-g.add_edge(4, 2, 4)  # E - C, weight 4
-g.add_edge(4, 6, 5)  # E - G, weight 5
-g.add_edge(2, 5, 5)  # C - F, weight 5
-g.add_edge(2, 1, 2)  # C - B, weight 2
-g.add_edge(1, 5, 2)  # B - F, weight 2
-g.add_edge(6, 5, 5)  # G - F, weight 5
+g.add_edge(3, 0, 4)  # D -> A, weight 4
+g.add_edge(3, 2, 7)  # D -> C, weight 7
+g.add_edge(3, 4, 3)  # D -> E, weight 3
+g.add_edge(0, 2, 4)  # A -> C, weight 4
+g.add_edge(2, 0, -3)  # C -> A, weight -3
+g.add_edge(0, 4, 5)  # A -> E, weight 5
+g.add_edge(4, 2, 3)  # E -> C, weight 3
+g.add_edge(1, 2, -4)  # B -> C, weight -4
+g.add_edge(4, 1, 2)  # E -> B, weight 2
 
-# Dijkstra's algorithm from D to all vertices
-print("Dijkstra's Algorithm starting from vertex D:\n")
-distances = g.dijkstra('D')
-for i, d in enumerate(distances):
-    print(f"Shortest distance from D to {g.vertex_data[i]}: {d}")
-
-
-
-
+# Running the Bellman-Ford algorithm from D to all vertices
+print("\nThe Bellman-Ford Algorithm starting from vertex D:")
+negative_cycle, distances, predecessors = g.bellman_ford('D')
+if not negative_cycle:
+    for i, d in enumerate(distances):
+        if d != float('inf'):
+            path = g.get_path(predecessors, 'D', g.vertex_data[i])
+            print(f"{path}, Distance: {d}")
+        else:
+            print(f"No path from D to {g.vertex_data[i]}, Distance: Infinity")
+else:
+    print("Negative weight cycle detected. Cannot compute shortest paths.")

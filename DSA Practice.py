@@ -1,5 +1,6 @@
 # Minimum value in an array
-from wsgiref.validate import header_re
+from os import remove
+# from wsgiref.validate import header_re
 
 
 # import time
@@ -353,49 +354,435 @@ from wsgiref.validate import header_re
 
 # Stack with Linked List
 
-class Node:
-    def __init__(self,value):
-        self.value = value
-        self.next = None
+# class Node:
+#     def __init__(self,value):
+#         self.value = value
+#         self.next = None
+#
+# class Stack:
+#
+#     def __init__(self):
+#         self. head = None
+#         self.size = 0
+#
+#     def push(self,value):
+#         new_node = Node (value)
+#         if self.head:
+#             new_node.next = self.head
+#         self.head = new_node
+#         self.size += 1
+#     def pop(self):
+#         if self.isEmpty():
+#             return "Stack is Empty"
+#         popped_value = self.head
+#         self.head = self.head.next
+#         self.size -= 1
+#         return popped_value.value
+#
+#     def peek(self):
+#         if self.isEmpty():
+#             return "Stack is Empty"
+#         return self.head.value
+#
+#     def isEmpty(self):
+#         return self.size == 0
+#     def stack_size(self):
+#         return self.size
+#
+# myStack = Stack()
+# myStack.push('A')
+# myStack.push('B')
+# myStack.push('C')
+#
+# print("Pop: ", myStack.pop())
+# print("Peek: ", myStack.peek())
+# print("isEmpty: ", myStack.isEmpty())
+# print("Size: ", myStack.stack_size())
 
-class Stack:
 
-    def __init__(self):
-        self. head = None
-        self.size = 0
+# Queue Linked List
 
-    def push(self,value):
-        new_node = Node (value)
-        if self.head:
-            new_node.next = self.head
-        self.head = new_node
-        self.size += 1
-    def pop(self):
-        if self.isEmpty():
-            return "Stack is Empty"
-        popped_value = self.head
-        self.head = self.head.next
-        self.size -= 1
-        return popped_value.value
+# class Node:
+#     def __init__(self, data):
+#         self.data = data
+#         self.next = None
+# class Queue:
+#     def __init__(self):
+#         self.front = None
+#         self.rear = None
+#         self.size = 0
+#
+#     def enqueue(self,element):
+#         new_node = Node(element)
+#         if self.rear is None:
+#             self.front = self.rear = new_node
+#             self.size += 1
+#             return
+#         self.rear.next = new_node
+#         self.rear = new_node
+#         self.size += 1
+#
+#     def dequeue(self):
+#         if self.isEmpty():
+#             return "Queue is empty"
+#         temp = self.front
+#         self.front = temp.next
+#         self.size -= 1
+#         if self.front is None:
+#             self.rear = None
+#         return temp.data
+#
+#     def peek(self):
+#         if self.isEmpty():
+#             return "Queue is empty"
+#         return self.front.data
+#
+#     def isEmpty(self):
+#         return self.size == 0
+#
+#     def queue_size(self):
+#         return self.size
+#
+#     def printQueue(self):
+#         temp = self.front
+#         while temp:
+#             print(temp.data, end=" ")
+#             temp = temp.next
+#         print()
+#
+# # Create a queue
+# myQueue = Queue()
+#
+# myQueue.enqueue('A')
+# myQueue.enqueue('B')
+# myQueue.enqueue('C')
+# print("Queue: ", end="")
+# myQueue.printQueue()
+#
+# print("Dequeue: ", myQueue.dequeue())
+#
+# print("Peek: ", myQueue.peek())
+#
+# print("isEmpty: ", myQueue.isEmpty())
+#
+# print("Size: ", myQueue.queue_size())
+
+# Looking up a name using a hash function
+
+# my_hash_set = [None,'Jones',None,'Lisa',None,'Bob',None,'Siri','Pete',None]
+#
+# def hash (value):
+#     sum = 0
+#     for char in value:
+#         sum = sum + ord(char)
+#
+#     return sum % 10
+#
+# def contains(name):
+#     index = hash(name)
+#     return my_hash_set[index] == name
+#
+# print("'Pete' is in the Hash Set:",contains('Pete'))
 
 
-    def peek(self):
-        if self.isEmpty():
-            return "Stack is Empty"
-        return self.head.value
+# Handling Collison
+
+# my_hash_set = [
+#     [None],
+#     ['Jones'],
+#     [None],
+#     ['Lisa'],
+#     [None],
+#     ['Bob'],
+#     [None],
+#     ['Siri'],
+#     ['Pete'],
+#     [None]
+# ]
+#
+# def hash_function(value):
+#     sum = 0
+#     for char in value:
+#         sum = sum + ord(char)
+#
+#     return sum % 10
+#
+# def add(value):
+#     index = hash_function(value)
+#     bucket = my_hash_set[index]
+#     if value not in bucket:
+#         bucket.append(value)
+#
+# def contains(value):
+#     index = hash_function(value)
+#     bucket = my_hash_set[index]
+#     return value in bucket
+#
+# add('Stuart')
+# print(my_hash_set)
+# print('Contains Stuart:', contains('Stuart'))
 
 
-    def isEmpty(self):
-        return self.size == 0
-    def stack_size(self):
-        return self.size
+# Hash Sets
+# class SimpleHashSet:
+#     def __init__(self, size):
+#         self.size = size
+#         self.buckets = []
+#         for i in range (size):
+#             self.buckets.append([])
+#
+#     def hash_function(self,value):
+#         sum = 0
+#         for char in value:
+#             sum = sum + ord(char)
+#
+#         return sum % 10
+#
+#     def add(self, value):
+#         index = self. hash_function(value)
+#         bucket = self.buckets[index]
+#         if value not in bucket:
+#             bucket.append(value)
+#
+#     def contains(self, value):
+#         index = self.hash_function(value)
+#         bucket = self.buckets[index]
+#         return value in bucket
+#
+#     def remove(self, value):
+#         index = self.hash_function(value)
+#         bucket = self.buckets[index]
+#         if value in bucket:
+#             bucket.remove(value)
+#
+#     def print_set(self):
+#         print("Hash Set Contents:")
+#         for index, bucket in enumerate(self.buckets):
+#             print(f"Bucket {index}: {bucket}")
+#
+# hash_set = SimpleHashSet(size=10)
+#
+# hash_set.add("Charlotte")
+# hash_set.add("Thomas")
+# hash_set.add("Jens")
+# hash_set.add("Peter")
+# hash_set.add("Lisa")
+# hash_set.add("Adele")
+# hash_set.add("Michaela")
+# hash_set.add("Bob")
+# hash_set.print_set()
+# print("\n'Peter' is in the set:",hash_set.contains('Peter'))
+# print("Removing 'Peter'")
+# hash_set.remove('Peter')
+# print("'Peter' is in the set:",hash_set.contains('Peter'))
+# print("'Adele' has hash code:",hash_set.hash_function('Adele'))
 
-myStack = Stack()
-myStack.push('A')
-myStack.push('B')
-myStack.push('C')
+# Hash Map
 
-print("Pop: ", myStack.pop())
-print("Peek: ", myStack.peek())
-print("isEmpty: ", myStack.isEmpty())
-print("Size: ", myStack.stack_size())
+# class SimpleHashMap:
+#     def __init__(self, size):
+#         self.size = size
+#         self.buckets = []
+#         for i in range (size):
+#             self.buckets.append([])
+#
+#     def hash_function(self, key):
+#         numeric_sum = 0
+#         for char in key:
+#             if char.isdigit():
+#                 numeric_sum = numeric_sum + int(char)
+#
+#         return numeric_sum % 10
+#
+#     def put(self, key, value):
+#         index = self.hash_function(key)
+#         bucket = self.buckets[index]
+#         for i, (k,v) in enumerate(bucket):
+#             if k == key:
+#                 bucket[i] = (key, value)
+#                 return
+#
+#         bucket.append((key, value))
+#
+#     def get(self, key):
+#         index = self.hash_function(key)
+#         bucket = self.buckets[index]
+#         for k,v in enumerate(bucket):
+#             if k == key:
+#                 return v
+#         return None
+#
+#     def remove(self, key):
+#         index = self.hash_function(key)
+#         bucket = self.buckets[index]
+#         for i, (k,v) in enumerate(bucket):
+#             if k == key:
+#                 del bucket[i]
+#                 return
+#     def print_map(self):
+#         print("Hash Map Contents:")
+#         for index, bucket in enumerate(self.buckets):
+#             print(f"Bucket {index}: {bucket}")
+#
+# hash_map = SimpleHashMap(size=10)
+#
+# # Adding some entries
+# hash_map.put("123-4567", "Charlotte")
+# hash_map.put("123-4568", "Thomas")
+# hash_map.put("123-4569", "Jens")
+# hash_map.put("123-4570", "Peter")
+# hash_map.put("123-4571", "Lisa")
+# hash_map.put("123-4672", "Adele")
+# hash_map.put("123-4573", "Michaela")
+# hash_map.put("123-6574", "Bob")
+#
+# hash_map.print_map()
+#
+# print("\nName associated with '123-4570':", hash_map.get("123-4570"))
+#
+# print("Updating the name for '123-4570' to 'James'")
+# hash_map.put("123-4570","James")
+#
+# print("Name associated with '123-4570':", hash_map.get("123-4570"))
+
+# Binary Tree Pre/In/Post Order
+
+# class TreeNode:
+#     def __init__(self, data):
+#         self.data = data
+#         self.right = None
+#         self.left = None
+
+# def pre_order(node):
+#     if node is None:
+#         return
+#     print(node.data, end=',')
+#     pre_order(node.left)
+#     pre_order(node.right)
+
+# def post_order(node):
+#     if node is None:
+#         return
+#     post_order(node.left)
+#     post_order(node.right)
+#     print(node.data, end=',')
+
+# def in_order(node):
+#     if node is None:
+#         return
+#     in_order(node.left)
+#     print(node.data, end=',')
+#     in_order(node.right)
+#
+# root = TreeNode('R')
+# nodeA = TreeNode('A')
+# nodeB = TreeNode('B')
+# nodeC = TreeNode('C')
+# nodeD = TreeNode('D')
+# nodeE = TreeNode('E')
+# nodeF = TreeNode('F')
+# nodeG = TreeNode('G')
+#
+# root.left = nodeA
+# root.right = nodeB
+#
+# nodeA.left = nodeC
+# nodeA.right = nodeD
+#
+# nodeB.left = nodeE
+# nodeB.right = nodeF
+#
+# nodeF.left = nodeG
+#
+# in_order(root)
+
+# Binary Tree Array
+
+# binary_tree_array = ['R', 'A', 'B', 'C', 'D', 'E', 'F', None, None, None, None, None, None, 'G']
+#
+# def left_child_index(index):
+#     return 2 * index + 1
+#
+# def right_child_index(index):
+#     return 2 * index + 2
+#
+# def get_data(index):
+#     if 0 <= index < len(binary_tree_array):
+#         return binary_tree_array[index]
+#     return None
+#
+# right_child = right_child_index(0)
+# left_child_of_right_child = left_child_index(right_child)
+# data = get_data(left_child_of_right_child)
+#
+# print("root.right.left.data:", data)
+
+
+# Binary Tree Array Pre/In/Post Order
+
+# binary_tree_array = ['R', 'A', 'B', 'C', 'D', 'E', 'F', None, None, None, None, None, None, 'G']
+#
+# def left_child_index(index):
+#     return 2 * index + 1
+#
+# def right_child_index(index):
+#     return 2 * index + 2
+#
+# def pre_order(index):
+#     if index >= len(binary_tree_array) or binary_tree_array[index] is None:
+#         return []
+#     return [binary_tree_array[index]] + pre_order(left_child_index(index)) + pre_order(right_child_index(index))
+#
+# def in_order (index):
+#     if index >= len(binary_tree_array) or binary_tree_array[index] is None:
+#         return []
+#     return pre_order(left_child_index(index)) + [binary_tree_array[index]] +  pre_order(right_child_index(index))
+#
+# def post_order(index):
+#     if index >= len(binary_tree_array) or binary_tree_array[index] is None:
+#         return []
+#     return pre_order(left_child_index(index)) + pre_order(right_child_index(index)) + [binary_tree_array[index]]
+#
+# print("Pre-order Traversal:", pre_order(0))
+# print("In-order Traversal:", in_order(0))
+# print("Post-order Traversal:", post_order(0))
+
+
+# Finding Value in Binary Search Tree
+
+# class TreeNode:
+#     def __init__(self, data):
+#         self.data = data
+#         self.right = None
+#         self.left = None
+#
+# def search (node, target):
+#     if node is None:
+#         return None
+#     elif node.data == target:
+#         return node
+#     elif target < node.data:
+#         return search(node.left, target)
+#     else:
+#         return search(node.right, target)
+# root = TreeNode(13)
+# node7 = TreeNode(7)
+# node15 = TreeNode(15)
+# node3 = TreeNode(3)
+# node8 = TreeNode(8)
+#
+#
+#
+# node14 = TreeNode(14)
+# node19 = TreeNode(19)
+# node18 = TreeNode(18)
+#
+# root.left = node7
+# root.right = node15
+# node7.left = node3
+# node7.right = node8
+#
+# node15.left = node14
+# node15.right = node19
+
+

@@ -153,27 +153,106 @@
 
 # Valid Parentheses
 
-class Solution:
-    def isValid(self, s: str) -> bool:
-        stack = []  # ← Create a separate stack!
-        opening = ['(', '[', '{']
-        closing = [')', ']', '}']
-        matches = {
-            ')': '(',
-            ']': '[',
-            '}': '{'
-        }
-        for char in s:  # Loop through the string
-            if char in opening:
-                stack.append(char)  # ✓ Append to stack
+# class Solution:
+#     def isValid(self, s: str) -> bool:
+#         stack = []  # ← Create a separate stack!
+#         opening = ['(', '[', '{']
+#         closing = [')', ']', '}']
+#         matches = {
+#             ')': '(',
+#             ']': '[',
+#             '}': '{'
+#         }
+#         for char in s:  # Loop through the string
+#             if char in opening:
+#                 stack.append(char)  # ✓ Append to stack
+#
+#             elif char in closing:
+#                 if not stack:  # ✓ Check if stack is empty
+#                     return False
+#
+#                 if stack[-1] == matches[char]:  # ✓ Check stack's top
+#                     stack.pop()  # ✓ Pop from stack
+#                 else:
+#                     return False
+#
+#         return len(stack) == 0  # ✓ True if stack is empty
 
-            elif char in closing:
-                if not stack:  # ✓ Check if stack is empty
-                    return False
+# Binary Tree Pre Order
 
-                if stack[-1] == matches[char]:  # ✓ Check stack's top
-                    stack.pop()  # ✓ Pop from stack
-                else:
-                    return False
+# class Solution:
+#     def preOrderTraversal(self, root):
+#         result=[]
+#         def preOrder(node):
+#             if node is None:
+#                 return
+#             result.append(node.value)
+#             preOrder(node.left)
+#             preOrder(node.right)
+#
+#         preOrder(root)
+#         return result
 
-        return len(stack) == 0  # ✓ True if stack is empty
+
+# Merge Two Sorted List
+
+# class Solution:
+#     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+#         # Create a dummy node to make things easier
+#         dummy = ListNode(0)
+#         current = dummy
+#
+#         # While both lists have nodes
+#         while list1 and list2:
+#             if list1.val <= list2.val:
+#                 current.next = list1  # Attach list1's node
+#                 list1 = list1.next  # Move list1 forward
+#             else:
+#                 current.next = list2  # Attach list2's node
+#                 list2 = list2.next  # Move list2 forward
+#
+#             current = current.next  # Move current forward
+#
+#         # Attach remaining nodes (one list is empty, one might have nodes left)
+#         if list1:
+#             current.next = list1
+#         if list2:
+#             current.next = list2
+#
+#         # Return the head (skip dummy node)
+#         return dummy.next
+
+
+# Remove Elements From Sorted Array
+
+# def remove(arr):
+#     n = len(arr)
+#     k = 0
+#     for i in range(1,n):
+#         if arr[i] != arr[i-1]:
+#             k = k + 1
+#             arr[k] = arr[i]
+#         else:
+#             continue
+#     return k + 1
+#
+# arr1 = [1,1,2,3,3,4,5]
+# result = remove(arr1)
+# print(result)
+# print(arr1[:result])
+
+# Remove Element
+def remove(arr, value):
+    k = 0
+    n = len(arr)
+    for i in range(n):
+        if arr[i] != value:
+            arr[k] = arr[i]
+            k = k + 1
+    while len(arr) > k:
+        arr.pop()
+    return k
+
+arr1 = [1,1,2,3,3,4,5]
+result = remove(arr1,3)
+print(result)

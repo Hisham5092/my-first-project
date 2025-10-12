@@ -7,6 +7,7 @@
 #         sum = nums[i] + nums[j]
 #         if sum == target:
 #             print([i, j])
+from time import process_time_ns
 
 # 2 Sum Hashmap
 # nums = [2,3,4]
@@ -242,17 +243,35 @@
 # print(arr1[:result])
 
 # Remove Element
-def remove(arr, value):
-    k = 0
-    n = len(arr)
-    for i in range(n):
-        if arr[i] != value:
-            arr[k] = arr[i]
-            k = k + 1
-    while len(arr) > k:
-        arr.pop()
-    return k
+# def remove(arr, value):
+#     k = 0
+#     n = len(arr)
+#     for i in range(n):
+#         if arr[i] != value:
+#             arr[k] = arr[i]
+#             k = k + 1
+#     while len(arr) > k:
+#         arr.pop()
+#     return k
+#
+# arr1 = [1,1,2,3,3,4,5]
+# result = remove(arr1,3)
+# print(result)
 
-arr1 = [1,1,2,3,3,4,5]
-result = remove(arr1,3)
-print(result)
+# Find The Index of The First Occurrence in A String
+
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        if not needle:
+            return 0
+        for i in range(len(haystack) - len(needle) + 1):
+            substring = haystack[i: i + len(needle)]
+
+            if substring == needle:
+                print(f"found at index {i}")
+                return i
+        return -1
+
+sol = Solution()
+result = sol.strStr("sadbutsad", "sad")
+

@@ -260,18 +260,52 @@ from time import process_time_ns
 
 # Find The Index of The First Occurrence in A String
 
-class Solution:
-    def strStr(self, haystack: str, needle: str) -> int:
-        if not needle:
-            return 0
-        for i in range(len(haystack) - len(needle) + 1):
-            substring = haystack[i: i + len(needle)]
+# class Solution:
+#     def strStr(self, haystack: str, needle: str) -> int:
+#         if not needle:
+#             return 0
+#         for i in range(len(haystack) - len(needle) + 1):
+#             substring = haystack[i: i + len(needle)]
+#
+#             if substring == needle:
+#                 print(f"found at index {i}")
+#                 return i
+#         return -1
+#
+# sol = Solution()
+# result = sol.strStr("sadbutsad", "sad")
 
-            if substring == needle:
-                print(f"found at index {i}")
-                return i
-        return -1
+# Search Insert Position
 
-sol = Solution()
-result = sol.strStr("sadbutsad", "sad")
+def find(arr, target):
+
+    left = 0
+    right = len(arr) - 1
+
+    while left <= right:
+
+        mid = (left + right) // 2
+
+        if target == arr[mid]:
+            return mid
+
+        if target < arr[mid]:
+            right = mid - 1
+
+        else:
+            left = mid + 1
+
+    return -1
+
+myArray = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+myTarget = 15
+
+result = find(myArray, myTarget)
+
+if result != 1:
+    print("Found", result)
+else:
+    print("Not found")
+
+# Length of Last Word
 

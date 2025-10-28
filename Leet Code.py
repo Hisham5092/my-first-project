@@ -277,35 +277,78 @@ from time import process_time_ns
 
 # Search Insert Position
 
-def find(arr, target):
-
-    left = 0
-    right = len(arr) - 1
-
-    while left <= right:
-
-        mid = (left + right) // 2
-
-        if target == arr[mid]:
-            return mid
-
-        if target < arr[mid]:
-            right = mid - 1
-
-        else:
-            left = mid + 1
-
-    return -1
-
-myArray = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-myTarget = 15
-
-result = find(myArray, myTarget)
-
-if result != 1:
-    print("Found", result)
-else:
-    print("Not found")
+# def find(arr, target):
+#
+#     left = 0
+#     right = len(arr) - 1
+#
+#     while left <= right:
+#
+#         mid = (left + right) // 2
+#
+#         if target == arr[mid]:
+#             return mid
+#
+#         if target < arr[mid]:
+#             right = mid - 1
+#
+#         else:
+#             left = mid + 1
+#
+#     return -1
+#
+# myArray = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+# myTarget = 15
+#
+# result = find(myArray, myTarget)
+#
+# if result != 1:
+#     print("Found", result)
+# else:
+#     print("Not found")
 
 # Length of Last Word
+#
+# s = "Hello World"
+#
+# words = s.rsplit(maxsplit=1)
+# print(words)
+
+# def lengthOfLastWord(s):
+#     count = 0
+#     i = len(s) - 1
+#
+#     while i >= 0 and s[i] == " ":
+#         i = i - 1
+#
+#     while i >= 0 and s[i] != " ":
+#         count = count + 1
+#         i = i - 1
+#
+#     return count
+#
+# result = lengthOfLastWord('Hello Doug')
+# print(result)
+
+
+# Plus One
+
+class Solution:
+    def plusOne(self, digits):
+
+        n = len(digits)
+        for i in range(n-1, -1, -1):
+            if digits[i] < 9:
+                digits[i] += 1
+                return digits
+
+            digits[i] = 0
+
+        return [1] + digits
+
+sol = Solution()
+arr = [1,9,9]
+result = sol.plusOne(arr)
+print(result)
+
 

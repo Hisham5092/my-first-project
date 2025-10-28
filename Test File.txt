@@ -1,3 +1,482 @@
 This is new file
 Another Line
 One More
+183-846-0596
+175-163-2337
+
+# Quick Cheat Sheet
+# Anchors
+r'^hello'    # Starts with hello
+r'world$'    # Ends with world
+r'^hello$'   # Exact match
+
+# Quantifiers
+r'a*'        # 0 or more a's
+r'a+'        # 1 or more a's
+r'a?'        # 0 or 1 a
+r'a{3}'      # Exactly 3 a's
+r'a{2,5}'    # 2 to 5 a's
+
+# Character classes
+r'\d'        # Any digit (0-9)
+r'\w'        # Any word character (a-z, A-Z, 0-9, _)
+r'\s'        # Any whitespace
+r'.'         # Any character (except newline)
+
+# Groups
+r'(abc)+'    # One or more "abc"
+r'(cat|dog)' # "cat" or "dog"
+
+
+# Extract Phone Numbers
+import re
+
+text = "Call me at (123) 456-7890 or 987-654-3210"
+phone_pattern = r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'
+phones = re.findall(phone_pattern, text)
+print(phones)  # ['(123) 456-7890', '987-654-3210']
+
+# Extract Order Numbers
+import re
+
+text = "Your order ORD-12345 has been shipped. ORDER-ABC123 is pending."
+order_pattern = r'ORD(?:ER)?-[A-Z0-9]+'
+orders = re.findall(order_pattern, text, re.IGNORECASE)
+print(orders)  # ['ORD-12345', 'ORDER-ABC123']
+
+# Extract URLs
+
+import re
+
+text = "Visit https://example.com or http://test.com/page"
+url_pattern = r'https?://[^\s]+'
+urls = re.findall(url_pattern, text)
+print(urls)  # ['https://example.com', 'http://test.com/page']
+
+# Remove Extra Whitespace
+
+import re
+
+text = "Hello    World  \n  How   are you?"
+cleaned = re.sub(r'\s+', ' ', text).strip()
+print(cleaned)  # "Hello World How are you?"
+
+# Remove Special Characters
+
+import re
+
+text = "Hello! @World# 123$%"
+cleaned = re.sub(r'[^a-zA-Z0-9\s]', '', text)
+print(cleaned)  # "Hello World 123"
+
+# Format Phone Numbers
+import re
+
+phone = "1234567890"
+formatted = re.sub(r'(\d{3})(\d{3})(\d{4})', r'(\1) \2-\3', phone)
+print(formatted)  # "(123) 456-7890"
+
+# Extract First and Last Name
+import re
+
+full_name = "John Doe"
+match = re.match(r'^(\w+)\s+(\w+)$', full_name)
+if match:
+    first_name = match.group(1)  # "John"
+    last_name = match.group(2)   # "Doe"
+    print(first_name, last_name)
+
+# Validate Email
+
+import re
+
+email = "test@example.com"
+email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+is_valid = bool(re.match(email_pattern, email))
+print(is_valid)  # True
+
+# Validate Password Strength
+
+import re
+
+password = "Pass1234"
+# Password must be 8-20 chars, contain letter and number
+password_pattern = r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$'
+is_strong = bool(re.match(password_pattern, password))
+print(is_strong)  # True
+
+# Validate Credit Card Number
+
+import re
+
+card_number = "4532-1234-5678-9010"
+card_pattern = r'^\d{4}-?\d{4}-?\d{4}-?\d{4}$'
+is_valid = bool(re.match(card_pattern, card_number))
+print(is_valid)  # True
+
+# Extract Dates
+
+import re
+
+text = "Event on 12/25/2024 or 01-15-2025"
+date_pattern = r'\d{2}[-/]\d{2}[-/]\d{4}'
+dates = re.findall(date_pattern, text)
+print(dates)  # ['12/25/2024', '01-15-2025']
+
+# Extract Prices
+
+import re
+
+text = "Item costs $99.99 and shipping is $15.00. Total: $1,234.50"
+price_pattern = r'\$[\d,]+\.?\d*'
+prices = re.findall(price_pattern, text)
+print(prices)  # ['$99.99', '$15.00', '$1,234.50']
+
+# Extract Hashtags
+
+import re
+
+text = "Love this! #automation #productivity #nocode"
+hashtag_pattern = r'#\w+'
+hashtags = re.findall(hashtag_pattern, text)
+print(hashtags)  # ['#automation', '#productivity', '#nocode']
+
+# Extract @Mentions
+
+import re
+
+text = "Thanks @john and @mary_smith for your help!"
+mention_pattern = r'@\w+'
+mentions = re.findall(mention_pattern, text)
+print(mentions)  # ['@john', '@mary_smith']
+
+# Replace Multiple Spaces with One
+
+import re
+
+text = "Too    many     spaces"
+cleaned = re.sub(r'\s{2,}', ' ', text)
+print(cleaned)  # "Too many spaces"
+
+# Mask Sensitive Data
+
+import re
+
+card_number = "4532123456789010"
+# Mask all but last 4 digits
+masked = re.sub(r'\d(?=\d{4})', '*', card_number)
+print(masked)  # "************9010"
+
+# Replace Line Breaks with <br>
+
+import re
+
+text = "Line 1\nLine 2\nLine 3"
+html = re.sub(r'\n', '<br>', text)
+print(html)  # "Line 1<br>Line 2<br>Line 3"
+
+# Replace Multiple Values
+
+import re
+
+response = "Yeah, I agree. N for the second question."
+# Replace Yes/Y/yeah with "Yes", No/N/nah with "No"
+normalized = re.sub(r'\b(yes|y|yeah)\b', 'Yes', response, flags=re.IGNORECASE)
+normalized = re.sub(r'\b(no|n|nah)\b', 'No', normalized, flags=re.IGNORECASE)
+print(normalized)  # "Yes, I agree. No for the second question."
+
+# Scenario 1: Parse Invoice Email
+
+import re
+
+email_body = """
+Invoice #INV-2024-001
+Date: 12/25/2024
+Amount: $1,234.56
+"""
+
+# Extract invoice number
+invoice_match = re.search(r'Invoice #([\w-]+)', email_body)
+invoice_num = invoice_match.group(1) if invoice_match else None
+
+# Extract date
+date_match = re.search(r'Date: ([\d\/]+)', email_body)
+date = date_match.group(1) if date_match else None
+
+# Extract amount
+amount_match = re.search(r'Amount: \$([\d,]+\.?\d*)', email_body)
+amount = amount_match.group(1) if amount_match else None
+
+result = {
+    'invoice_num': invoice_num,  # "INV-2024-001"
+    'date': date,                # "12/25/2024"
+    'amount': amount             # "1,234.56"
+}
+print(result)
+
+# Scenario 2: Clean and Format CSV Data
+
+import re
+
+dirty_data = "  John  Doe  , john@email.com  ,  (123) 456-7890  "
+
+# Clean data
+cleaned = re.sub(r'\s+', ' ', dirty_data).strip()
+fields = [field.strip() for field in cleaned.split(',')]
+
+print(fields)  # ["John Doe", "john@email.com", "(123) 456-7890"]
+
+# Scenario 3: Extract Customer Sentiment
+
+import re
+
+feedback = "Great product! Very happy with the purchase."
+
+positive_pattern = r'\b(great|excellent|amazing|love|happy|satisfied)\b'
+negative_pattern = r'\b(bad|terrible|awful|hate|disappointed|poor)\b'
+
+is_positive = bool(re.search(positive_pattern, feedback, re.IGNORECASE))
+is_negative = bool(re.search(negative_pattern, feedback, re.IGNORECASE))
+
+if is_positive:
+    print("Positive feedback")  # ✓
+elif is_negative:
+    print("Negative feedback")
+else:
+    print("Neutral feedback")
+
+# Scenario 4: Auto-Tag Support Tickets
+
+import re
+
+ticket = "My payment failed and I can't access my account"
+
+tags = []
+
+if re.search(r'\b(payment|billing|charge|refund)\b', ticket, re.IGNORECASE):
+    tags.append('billing')
+
+if re.search(r'\b(login|password|access|account)\b', ticket, re.IGNORECASE):
+    tags.append('account')
+
+if re.search(r'\b(bug|error|broken|not working)\b', ticket, re.IGNORECASE):
+    tags.append('technical')
+
+print(tags)  # ['billing', 'account']
+
+# Template 1: Extract and Validate (n8n/Make)
+
+import re
+
+# n8n Python Code Node
+input_text = input_data['text']
+
+# Extract email
+email_match = re.search(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', input_text)
+email = email_match.group(0) if email_match else None
+
+# Validate email
+email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+is_valid_email = bool(re.match(email_pattern, email)) if email else False
+
+# Return data
+output = {
+    'original_text': input_text,
+    'extracted_email': email,
+    'is_valid': is_valid_email
+}
+
+print(output)
+
+# Template 2: Clean and Format (Zapier)
+
+import re
+
+# Zapier Code by Zapier (Python)
+messy_text = input_data['messy_text']
+
+# Clean data
+cleaned = re.sub(r'\s+', ' ', messy_text)        # Remove extra spaces
+cleaned = re.sub(r'[^\w\s@.-]', '', cleaned)     # Remove special chars
+cleaned = cleaned.strip()                         # Trim whitespace
+
+output = {'cleaned_text': cleaned}
+
+# Template 3: Parse and Route (Make)
+
+import re
+
+# Make Python Module
+text = input_data['text']
+
+# Extract order type
+order_type = 'unknown'
+if re.search(r'\b(express|urgent|rush)\b', text, re.IGNORECASE):
+    order_type = 'express'
+elif re.search(r'\b(standard|regular|normal)\b', text, re.IGNORECASE):
+    order_type = 'standard'
+
+# Extract priority
+has_priority = bool(re.search(r'\b(priority|important|urgent|asap)\b', text, re.IGNORECASE))
+
+output = {
+    'order_type': order_type,
+    'is_priority': has_priority
+}
+
+# Regex Cheat Sheet for Python Automation
+
+import re
+
+# COMMON PATTERNS
+
+# Email
+email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+re.findall(email_pattern, text)
+
+# Phone (US)
+phone_pattern = r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'
+re.findall(phone_pattern, text)
+
+# URL
+url_pattern = r'https?://[^\s]+'
+re.findall(url_pattern, text)
+
+# Date (MM/DD/YYYY)
+date_pattern = r'\d{2}[-/]\d{2}[-/]\d{4}'
+re.findall(date_pattern, text)
+
+# Price
+price_pattern = r'\$[\d,]+\.?\d*'
+re.findall(price_pattern, text)
+
+# Order ID
+order_pattern = r'ORD(?:ER)?-[A-Z0-9]+'
+re.findall(order_pattern, text, re.IGNORECASE)
+
+# Hashtag
+hashtag_pattern = r'#\w+'
+re.findall(hashtag_pattern, text)
+
+# Mention
+mention_pattern = r'@\w+'
+re.findall(mention_pattern, text)
+
+# ZIP Code (US)
+zip_pattern = r'\b\d{5}(?:-\d{4})?\b'
+re.findall(zip_pattern, text)
+
+# Credit Card
+card_pattern = r'\d{4}-?\d{4}-?\d{4}-?\d{4}'
+re.findall(card_pattern, text)
+
+# Social Security Number
+ssn_pattern = r'\d{3}-\d{2}-\d{4}'
+re.findall(ssn_pattern, text)
+
+# IP Address
+ip_pattern = r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b'
+re.findall(ip_pattern, text)
+
+# Python Regex Methods Summary
+
+import re
+
+text = "Contact: john@email.com or jane@email.com"
+
+# 1. re.findall() - Find all matches
+emails = re.findall(r'\w+@\w+\.\w+', text)
+print(emails)  # ['john@email.com', 'jane@email.com']
+
+# 2. re.search() - Find first match
+match = re.search(r'\w+@\w+\.\w+', text)
+if match:
+    print(match.group())  # 'john@email.com'
+
+# 3. re.match() - Match from beginning
+match = re.match(r'Contact', text)
+if match:
+    print("Starts with Contact")
+
+# 4. re.sub() - Replace matches
+cleaned = re.sub(r'\w+@\w+\.\w+', '[EMAIL]', text)
+print(cleaned)  # 'Contact: [EMAIL] or [EMAIL]'
+
+# 5. re.split() - Split by pattern
+parts = re.split(r'\s+or\s+', text)
+print(parts)  # ['Contact: john@email.com', 'jane@email.com']
+
+# 6. re.compile() - Compile pattern for reuse
+pattern = re.compile(r'\w+@\w+\.\w+')
+emails = pattern.findall(text)
+print(emails)
+
+# Full Email Parser Script
+
+import re
+
+def parse_email(email_body):
+    """
+    Parse email and extract useful information
+    """
+    result = {}
+
+    # Extract email addresses
+    email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+    result['emails'] = re.findall(email_pattern, email_body)
+
+    # Extract phone numbers
+    phone_pattern = r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'
+    result['phones'] = re.findall(phone_pattern, email_body)
+
+    # Extract order numbers
+    order_pattern = r'ORD(?:ER)?-[A-Z0-9]+'
+    result['orders'] = re.findall(order_pattern, email_body, re.IGNORECASE)
+
+    # Extract dates
+    date_pattern = r'\d{2}[-/]\d{2}[-/]\d{4}'
+    result['dates'] = re.findall(date_pattern, email_body)
+
+    # Extract prices
+    price_pattern = r'\$[\d,]+\.?\d*'
+    result['prices'] = re.findall(price_pattern, email_body)
+
+    # Sentiment analysis
+    positive = bool(re.search(r'\b(great|excellent|happy|satisfied)\b', email_body, re.IGNORECASE))
+    negative = bool(re.search(r'\b(bad|terrible|disappointed|poor)\b', email_body, re.IGNORECASE))
+
+    if positive:
+        result['sentiment'] = 'positive'
+    elif negative:
+        result['sentiment'] = 'negative'
+    else:
+        result['sentiment'] = 'neutral'
+
+    return result
+
+# Test
+email = """
+Hi there,
+
+Your order ORDER-12345 has been shipped!
+Total: $99.99
+Expected delivery: 12/25/2024
+
+Contact us at support@company.com or call (123) 456-7890
+
+Thanks for your purchase! We're happy to serve you.
+"""
+
+result = parse_email(email)
+print(result)
+
+# Output:
+# {
+#     'emails': ['support@company.com'],
+#     'phones': ['(123) 456-7890'],
+#     'orders': ['ORDER-12345'],
+#     'dates': ['12/25/2024'],
+#     'prices': ['$99.99'],
+#     'sentiment': 'positive'
+# }
+

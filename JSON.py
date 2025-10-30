@@ -42,18 +42,18 @@
 # Regular Expression
 
 import re
-from wsgiref.validate import bad_header_value_re
-
-text = '''Hey, how are you doing? Hope all is well. abc. 123-456-7898. Mr. Schafer. Mr Smith. Ms Davis. Mrs. Robinson. Mr. T
-hisham@gmail.com
-hisham.ahmed@gmail.edu
-hisham-321-ahmed@gmail.net
-
-https://www.google.com
-http://www.hisham.com
-https://www.youtube.com
-https://www.nasa.gov
-'''
+# from wsgiref.validate import bad_header_value_re
+#
+# text = '''Hey, how are you doing? Hope all is well. abc. 123-456-7898. Mr. Schafer. Mr Smith. Ms Davis. Mrs. Robinson. Mr. T
+# hisham@gmail.com
+# hisham.ahmed@gmail.edu
+# hisham-321-ahmed@gmail.net
+#
+# https://www.google.com
+# http://www.hisham.com
+# https://www.youtube.com
+# https://www.nasa.gov
+# '''
 # Number = 123-456-7898
 # pattern = re.compile(r'abc')
 # pattern = re.compile(r'\d{3}.\d{3}.\d{4}')
@@ -248,12 +248,12 @@ import requests
 
 import requests
 
-urls = [
-    'https://jsonplaceholder.typicode.com/users/1',  # Success
-    'https://jsonplaceholder.typicode.com/users/999999',  # 404 Error
-    'https://httpbin.org/delay/10',  # Timeout (if timeout=5)
-    'https://thissitedoesnotexist123456789.com'  # Connection Error
-]
+# urls = [
+#     'https://jsonplaceholder.typicode.com/users/1',  # Success
+#     'https://jsonplaceholder.typicode.com/users/999999',  # 404 Error
+#     'https://httpbin.org/delay/10',  # Timeout (if timeout=5)
+#     'https://thissitedoesnotexist123456789.com'  # Connection Error
+# ]
 
 # for url in urls:
 #     print(f"\nTrying: {url}")
@@ -269,10 +269,85 @@ urls = [
 
 # Excel
 
-from openpyxl import load_workbook, Workbook
+# from openpyxl import load_workbook, Workbook
+#
+# wb = Workbook()
+# sheet = wb.active
+# sheet.append(['Name', 'Email'])
+# sheet.append(['John', 'john@example.com'])
+# wb.save('output.xlsx')
 
-wb = Workbook()
-sheet = wb.active
-sheet.append(['Name', 'Email'])
-sheet.append(['John', 'john@example.com'])
-wb.save('output.xlsx')
+
+# Python to JSON
+# import json
+# from urllib.request import urlopen
+# url = "https://jsonplaceholder.typicode.com/users"
+# with urlopen(url) as response:
+#     source = response.read()
+#     data = json.loads(source)
+    # print(json.dumps(data, indent=2))
+    # for items in data:
+    #     name = items['company']['name']
+    #     print(name)
+
+
+
+# Saving JSON to A new File
+
+# import json
+#
+# from urllib.request import urlopen
+#
+# url = 'https://jsonplaceholder.typicode.com/users'
+#
+# with urlopen(url) as response:
+#     source = response.read()
+#     data = json.loads(source)
+#     # print(json.dumps(data, indent=2))
+#     users_info =[]
+#     for items in data:
+#         # name = items['name']
+#         # name = items['name'], items['email'], items['address']['city'], items['phone'], items['website'], items['company']['name']
+#         user_data = {
+#             'Name': items['name'],
+#             'Email': items['email'],
+#             'Address[City]': items['address']['city'],
+#             'Phone No': items['phone'],
+#             'Website': items['website'],
+#             'Company Name': items['company']['name']
+#         }
+#         users_info.append(user_data)
+#         # print(json.dumps(user_data, indent=2))
+#         with open('data.json', 'w') as f:
+#             json.dump(users_info, f, indent=2)
+
+# with open('data.json', 'w') as f:
+#     try:
+#         f.write('')
+#     except Exception as e:
+#         print(f"Error: {e}")
+#     else:
+#         print('Successful')
+
+
+# Loading JSON File and Updating Value and Saving It Back
+
+import json
+
+try:
+    with open('data.json', 'r') as f:
+        data = json.load(f)
+    data[0]['Name'] = 'Lisa'
+    with open('data.json', 'w') as f:
+        json.dump(data, f, indent=2)
+except FileNotFoundError as e:
+    print(f"Error: {e}")
+else:
+    print("Name updated successfully")
+
+
+
+
+
+
+

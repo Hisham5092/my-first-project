@@ -545,7 +545,7 @@
 
 
 # RegEx Find all numbers from a text.
-import re
+# import re
 #
 # text = '''Hi! This is AI. I will   take over the world one day. HA HA HA!
 # This is a testing project. I have   your number. 01838460596. also i know your nid. it is 25513807923. I also know your email. hishamahmed5092@gmail.com
@@ -604,19 +604,588 @@ import re
 
 # Requests
 
+# import requests
+#
+# # Basic version
+# name = "hisham"
+#
+# try:
+#     response = requests.get(f"https://api.agify.io/?name={name}")
+#
+#     print(f"Status Code: {response.status_code}")
+#     print(f"Response JSON: {response.json()}")
+#
+# except requests.exceptions.RequestException as e:
+#     print(f"Error: {e}")
+#
+
+
+# import requests
+#
+# url = 'https://api.genderize.io'
+# params= {'name':'hisham'}
+# params = {
+#     "name[]": ["hisham", "lisa", "alex"]
+# }
+# headers= {'User-Agent':'MyTestApp'}
+#
+# response = requests.get(url, params=params, headers=headers)
+
+# if response.status_code == 200:
+#     data = response.json()
+#     print(f"Name: {data['name']}")
+#     print(f"Predicted Gender: {data['gender']}")
+# else:
+#     print("Request failed with status code:", response.status_code)
+
+# if response.status_code == 200:
+#     data = response.json()
+#     for person in data:
+#         print(f"Name: {person['name']}, Gender: {person['gender']}")
+# else:
+#     print("Request failed with status code:", response.status_code)
+
+# Save Genderize API Results to JSON
+
+# import requests
+# import json
+# import os
+# from datetime import datetime
+#
+# url = "https://api.genderize.io"
+# params = {"name[]": ["hisham", "lisa", "alex"]}
+# headers = {"User-Agent": "MyTestApp"}
+#
+# response = requests.get(url, params=params, headers=headers)
+#
+# if response.status_code == 200:
+#     data = response.json()
+#
+#     # Add timestamp to each record
+#     for person in data:
+#         person["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+#
+#     # If file exists, load existing data
+#     if os.path.exists("gender_results.json"):
+#         with open("gender_results.json", "r") as f:
+#             try:
+#                 existing_data = json.load(f)
+#             except json.JSONDecodeError:
+#                 existing_data = []
+#     else:
+#         existing_data = []
+#
+#     # Append new results
+#     existing_data.extend(data)
+#
+#     # Save back to file
+#     with open("gender_results.json", "w", encoding="utf-8") as f:
+#         json.dump(existing_data, f, indent=2, ensure_ascii=False)
+#
+#     print("✅ Results saved to gender_results.json!")
+# else:
+#     print("❌ Request failed:", response.status_code)
+
+
+# Parse and Extract API Data from agify.io
+
+# import requests
+# import json
+# from datetime import datetime
+# import os
+#
+# # Step 1: API Request
+# url = "https://api.agify.io"
+# params = {"name": "hisham"}  # you can change the name
+# headers = {"User-Agent": "MyTestApp"}
+#
+# response = requests.get(url, params=params, headers=headers)
+#
+# # Step 2: Parse JSON response
+# if response.status_code == 200:
+#     data = response.json()  # converts JSON → Python dict
+#
+#     # Step 3: Extract specific keys safely
+#     name = data.get("name", "Unknown")
+#     age = data.get("age", "N/A")
+#     count = data.get("count", 0)
+#
+#     print(f"Name: {name}")
+#     print(f"Predicted Age: {age}")
+#     print(f"Count (samples): {count}")
+#
+#     # Step 4: Add timestamp for logging
+#     record = {
+#         "name": name,
+#         "age": age,
+#         "count": count,
+#         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+#     }
+#
+#     # Step 5: Save to JSON file
+#     filename = "data.json"
+#     if os.path.exists(filename):
+#         with open(filename, "r", encoding="utf-8") as f:
+#             try:
+#                 existing_data = json.load(f)
+#             except json.JSONDecodeError:
+#                 existing_data = []
+#     else:
+#         existing_data = []
+#
+#     existing_data.append(record)
+#
+#     with open(filename, "w", encoding="utf-8") as f:
+#         json.dump(existing_data, f, indent=2, ensure_ascii=False)
+#
+#     print("✅ Data saved successfully to data.json!")
+#
+# else:
+#     print("❌ API request failed:", response.status_code)
+
+
+# Combine Multiple APIs for Enriched Data
+
+# import requests
+# import json
+# from datetime import datetime
+# import os
+#
+# # Ask user for a name
+# name = input("Enter a name: ").strip()
+#
+# # Step 1: API endpoints
+# urls = {
+#     "agify": "https://api.agify.io",
+#     "genderize": "https://api.genderize.io",
+#     "nationalize": "https://api.nationalize.io"
+# }
+#
+# headers = {"User-Agent": "MyTestApp"}
+#
+# # Step 2: Function to call API safely
+# def fetch_data(api_name, url, params):
+#     try:
+#         response = requests.get(url, params=params, headers=headers)
+#         response.raise_for_status()
+#         return response.json()
+#     except requests.RequestException as e:
+#         print(f"⚠️ Error fetching data from {api_name}: {e}")
+#         return {}
+#
+# # Step 3: Collect responses
+# params = {"name": name}
+# agify_data = fetch_data("Agify", urls["agify"], params)
+# genderize_data = fetch_data("Genderize", urls["genderize"], params)
+# nationalize_data = fetch_data("Nationalize", urls["nationalize"], params)
+#
+# # Step 4: Extract countries in normal (expanded) form
+# countries = []
+# for c in nationalize_data.get("country", []):
+#     countries.append(c.get("country_id"))
+#
+# # Step 5: Combine into one dictionary
+# record = {
+#     "name": name,
+#     "age": agify_data.get("age"),
+#     "gender": genderize_data.get("gender"),
+#     "probability_gender": genderize_data.get("probability"),
+#     "countries": countries,
+#     "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# }
+#
+# print("\n✅ Combined Result:")
+# print(json.dumps(record, indent=2, ensure_ascii=False))
+#
+# # Step 6: Save to JSON file
+# filename = "people_data.json"
+#
+# if os.path.exists(filename):
+#     with open(filename, "r", encoding="utf-8") as f:
+#         try:
+#             existing_data = json.load(f)
+#         except json.JSONDecodeError:
+#             existing_data = []
+# else:
+#     existing_data = []
+#
+# existing_data.append(record)
+#
+# with open(filename, "w", encoding="utf-8") as f:
+#     json.dump(existing_data, f, indent=2, ensure_ascii=False)
+#
+# print(f"\n📁 Saved to {filename}")
+
+
+# Automate API Calls for Multiple Names
+
+# import requests
+# import json
+# from datetime import datetime
+# import os
+# import time
+#
+# # Step 1: List of names
+# names = ["hisham", "lisa", "ahmed", "sophia", "michael"]
+#
+# # Step 2: API endpoints
+# urls = {
+#     "agify": "https://api.agify.io",
+#     "genderize": "https://api.genderize.io",
+#     "nationalize": "https://api.nationalize.io"
+# }
+#
+# headers = {"User-Agent": "MyTestApp"}
+#
+# # Step 3: Function to fetch data safely
+# def fetch_data(api_name, url, params):
+#     try:
+#         response = requests.get(url, params=params, headers=headers, timeout=10)
+#         response.raise_for_status()
+#         return response.json()
+#     except requests.RequestException as e:
+#         print(f"⚠️ Error fetching data from {api_name}: {e}")
+#         return {}
+#
+# # Step 4: Load existing JSON data (if any)
+# filename = "people_data.json"
+# if os.path.exists(filename):
+#     with open(filename, "r", encoding="utf-8") as f:
+#         try:
+#             existing_data = json.load(f)
+#         except json.JSONDecodeError:
+#             existing_data = []
+# else:
+#     existing_data = []
+#
+# # Step 5: Loop through names
+# for name in names:
+#     print(f"\n🔍 Fetching data for: {name}")
+#     params = {"name": name}
+#
+#     agify_data = fetch_data("Agify", urls["agify"], params)
+#     genderize_data = fetch_data("Genderize", urls["genderize"], params)
+#     nationalize_data = fetch_data("Nationalize", urls["nationalize"], params)
+#
+#     # Step 6: Combine all responses into one record
+#     record = {
+#         "name": name,
+#         "age": agify_data.get("age"),
+#         "gender": genderize_data.get("gender"),
+#         "probability_gender": genderize_data.get("probability"),
+#         "countries": [c.get("country_id") for c in nationalize_data.get("country", [])],
+#         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+#     }
+#
+#     existing_data.append(record)
+#
+#     print(json.dumps(record, indent=2, ensure_ascii=False))
+#     time.sleep(1)  # polite delay between requests (avoid hitting API too fast)
+#
+# # Step 7: Save all combined data
+# with open(filename, "w", encoding="utf-8") as f:
+#     json.dump(existing_data, f, indent=2, ensure_ascii=False)
+#
+# print("\n✅ All data fetched and saved to people_data.json")
+
+# Full Script: “data_automation_export.py”
+
+# import requests
+# import json
+# import csv
+# from datetime import datetime
+# import os
+
+# Step 1: Ask user for a name
+# name = input("Enter a name: ").strip()
+#
+# # Step 2: API endpoints
+# urls = {
+#     "agify": "https://api.agify.io",
+#     "genderize": "https://api.genderize.io",
+#     "nationalize": "https://api.nationalize.io"
+# }
+#
+# headers = {"User-Agent": "MyTestApp"}
+#
+# # Step 3: Function to fetch API data safely
+# def fetch_data(api_name, url, params):
+#     try:
+#         response = requests.get(url, params=params, headers=headers)
+#         response.raise_for_status()
+#         return response.json()
+#     except requests.RequestException as e:
+#         print(f"⚠️ Error fetching data from {api_name}: {e}")
+#         return {}
+#
+# # Step 4: Collect data
+# params = {"name": name}
+# agify_data = fetch_data("Agify", urls["agify"], params)
+# genderize_data = fetch_data("Genderize", urls["genderize"], params)
+# nationalize_data = fetch_data("Nationalize", urls["nationalize"], params)
+
+# Step 5: Combine everything into one record
+# countries_list = []
+# for c in nationalize_data.get("country", []):
+#     countries_list.append(c.get("country_id"))
+#
+# record = {
+#     "name": name,
+#     "age": agify_data.get("age"),
+#     "gender": genderize_data.get("gender"),
+#     "probability_gender": genderize_data.get("probability"),
+#     "countries": ", ".join(countries_list),
+#     "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# }
+#
+# print("\n✅ Combined Result:")
+# print(json.dumps(record, indent=2, ensure_ascii=False))
+#
+# # Step 6: Save to JSON file
+# json_file = "people_data.json"
+#
+# if os.path.exists(json_file):
+#     with open(json_file, "r", encoding="utf-8") as f:
+#         try:
+#             existing_data = json.load(f)
+#         except json.JSONDecodeError:
+#             existing_data = []
+# else:
+#     existing_data = []
+#
+# existing_data.append(record)
+#
+# with open(json_file, "w", encoding="utf-8") as f:
+#     json.dump(existing_data, f, indent=2, ensure_ascii=False)
+#
+# print(f"📁 Saved to {json_file}")
+#
+# # Step 7: Save to CSV file
+# csv_file = "people_data.csv"
+# file_exists = os.path.isfile(csv_file)
+#
+# with open(csv_file, "a", newline="", encoding="utf-8") as f:
+#     writer = csv.DictWriter(f, fieldnames=record.keys())
+#
+#     if not file_exists:
+#         writer.writeheader()
+#
+#     writer.writerow(record)
+#
+# print(f"📄 Also saved to {csv_file}")
+#
+# # Step 8: Simulate sending data to a webhook/API
+# webhook_url = "https://webhook.site/your_custom_webhook_here"  # You can replace this with your own webhook URL
+# try:
+#     post_response = requests.post(webhook_url, json=record, headers=headers)
+#     print(f"🚀 Sent to webhook! Status code: {post_response.status_code}")
+# except Exception as e:
+#     print(f"❌ Failed to send data to webhook: {e}")
+#
+# # Step 9: Log the event
+# with open("activity_log.txt", "a", encoding="utf-8") as log:
+#     log.write(f"{datetime.now()} - Data saved & sent for '{name}'\n")
+#
+# print("🪶 Logged activity successfully.")
+
+
+
+# Weather Code
+# import requests
+# import json
+# from datetime import datetime
+#
+#
+# def get_weather_data(latitude, longitude, city_name="Unknown"):
+#     url = "https://api.open-meteo.com/v1/forecast"
+#
+#     params = {
+#         'latitude': latitude,
+#         'longitude': longitude,
+#         'current': 'temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m',
+#         'daily': 'temperature_2m_max,temperature_2m_min,sunrise,sunset',
+#         'timezone': 'auto'
+#     }
+#
+#     try:
+#         response = requests.get(url, params=params, timeout=10)
+#
+#         if response.status_code == 200:
+#             data = response.json()
+#
+#             # Print current weather
+#             print(f"\nWeather for {city_name}:")
+#             current = data['current']
+#             print(f"Temperature: {current['temperature_2m']}°C (Feels like: {current['apparent_temperature']}°C)")
+#             print(f"Humidity: {current['relative_humidity_2m']}%")
+#             print(f"Wind: {current['wind_speed_10m']} km/h")
+#
+#             # Print 3-day forecast
+#             print(f"\n3-Day Forecast:")
+#             daily = data['daily']
+#             for i in range(3):
+#                 print(f"{daily['time'][i]}: {daily['temperature_2m_min'][i]}°C - {daily['temperature_2m_max'][i]}°C")
+#
+#             return data
+#         else:
+#             print(f"Error: Status {response.status_code}")
+#             return None
+#
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return None
+#
+#
+# # Test
+# cities = [
+#     {'name': 'Dhaka', 'lat': 23.8103, 'lon': 90.4125},
+#     {'name': 'New York', 'lat': 40.7128, 'lon': -74.0060},
+# ]
+#
+# for city in cities:
+#     weather = get_weather_data(city['lat'], city['lon'], city['name'])
+#
+#     if weather:
+#         filename = f"weather_{city['name'].lower()}_{datetime.now().strftime('%Y%m%d')}.json"
+#         with open(filename, 'w') as f:
+#             json.dump(weather, f, indent=2)
+#         print(f"Saved to: {filename}")
+
+
+
+
+# Simple Weather App
+# import requests
+# def simple_weather(city_coords):
+#     """Quick weather check"""
+#     url = "https://api.open-meteo.com/v1/forecast"
+#
+#     params = {
+#         'latitude': city_coords['lat'],
+#         'longitude': city_coords['lon'],
+#         'current': 'temperature_2m,precipitation,wind_speed_10m',
+#         'timezone': 'auto'
+#     }
+#
+#     try:
+#         response = requests.get(url, params=params)
+#         data = response.json()
+#
+#         current = data['current']
+#         print(f"\n🌤️  {city_coords['name']}:")
+#         print(f"   🌡️  {current['temperature_2m']}°C")
+#         print(f"   💨 Wind: {current['wind_speed_10m']} km/h")
+#         print(f"   🌧️  Rain: {current['precipitation']} mm")
+#
+#     except Exception as e:
+#         print(f"Error: {e}")
+#
+#
+# # Quick check
+# simple_weather({'name': 'Dhaka', 'lat': 23.8103, 'lon': 90.4125})
+
+
+
+
+# params = {
+#     'latitude': 52.52,
+#     'longitude': 13.41,
+#     'current': 'temperature_2m,relative_humidity_2m',
+# }
+# response = requests.get(url, params=params)
+#
+# data = response.json()
+# print(data['current']['temperature_2m'])
+# print(data['current']['relative_humidity_2m'])
+
+
+
+# Fetch weather data from Open-Meteo API for your city.
+# Parse temperature and conditions.
+# Save to weather.json.
+# Handle network error gracefully.
+
+
+import json
+from os import remove
+
 import requests
+import os
+from datetime import datetime
 
-# Basic version
-name = "hisham"
 
-try:
-    response = requests.get(f"https://api.agify.io/?name={name}")
 
-    print(f"Status Code: {response.status_code}")
-    print(f"Response JSON: {response.json()}")
+def fetch_weather_data(city_coordinate):
+    url = 'https://api.open-meteo.com/v1/forecast'
 
-except requests.exceptions.RequestException as e:
-    print(f"Error: {e}")
+    params = {
+        'latitude': city_coordinate['lat'],
+        'longitude': city_coordinate['long'],
+        'current': 'temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m',
+        'daily': 'temperature_2m_max,temperature_2m_min',
+        'timezone': 'auto'
+    }
+
+    try:
+        response = requests.get(url, params=params, timeout=10)
+
+        if response.status_code == 200:
+            data = response.json()
+            print(f"{city_coordinate['name']}:")
+            current = data['current']
+            print(f"Temperature: {current['temperature_2m']}°C")
+            print(f"Humidity: {current['relative_humidity_2m']}%")
+            print(f"Feels like: {current['apparent_temperature']}°C")
+            print(f"Wind Speed: {current['wind_speed_10m']}km/h")
+            daily = data['daily']
+            print('\nDaily data: ')
+            print(f"Max Temp: {daily['temperature_2m_max']}°C")
+            print(f"Min Temp: {daily['temperature_2m_min']}°C")
+            return data
+
+    except Exception as e:
+        print(f'Error: {e}')
+        return None
+
+
+# weather_data = fetch_weather_data({'name': 'Dhaka', 'lat': 23.8103, 'long': 90.4125})
+
+city_name = input("Enter your city name:").strip()
+latitude = float(input("Enter latitude: ").strip())
+longitude = float(input("Enter longitude: ").strip())
+
+weather_data = fetch_weather_data({'name': city_name, 'lat': latitude, 'long': longitude})
+
+if weather_data:
+    filename = 'weather.json'
+    if os.path.exists(filename):
+        try:
+            with open(filename, 'r') as f:
+                existing_data = json.load(f)
+                if not isinstance(existing_data, list):
+                    existing_data = [existing_data]
+        except json.JSONDecodeError:
+                existing_data = []
+    else:
+        existing_data = []
+
+weather_data['city_name'] = city_name
+weather_data['fetched_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+is_duplicate = any(
+        entry.get('city_name') == weather_data['city_name'] and
+        entry.get('current', {}).get('temperature_2m') == weather_data.get('current', {}).get('temperature_2m') and
+        entry.get('current', {}).get('relative_humidity_2m') == weather_data.get('current', {}).get('relative_humidity_2m')
+        for entry in existing_data
+    )
+
+if is_duplicate:
+    print(f"\nDuplicate data found for {city_name}. Skipping save.")
+else:
+    existing_data.append(weather_data)
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(existing_data, f, indent=2, ensure_ascii=False)
+    print(f"\nWeather data for {city_name} saved to {filename}")
 
 
 

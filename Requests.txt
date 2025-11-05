@@ -536,6 +536,52 @@ git merge feature-branch
 - **Automate the Boring Stuff:** https://automatetheboringstuff.com/
 - **YouTube:** Corey Schafer's Python tutorials
 
----
+# Here are the most common Open-Meteo parameters:
 
-Which topic would you like to start with next? I can give you detailed tutorials and practice exercises! 🚀
+CURRENT_WEATHER_PARAMS = [
+    'temperature_2m',           # Temperature at 2m height
+    'relative_humidity_2m',     # Humidity
+    'apparent_temperature',     # Feels like temperature
+    'precipitation',            # Current precipitation
+    'rain',                     # Rain amount
+    'snowfall',                 # Snow amount
+    'cloud_cover',              # Cloud cover percentage
+    'pressure_msl',             # Pressure at sea level
+    'wind_speed_10m',           # Wind speed at 10m
+    'wind_direction_10m',       # Wind direction
+    'wind_gusts_10m',           # Wind gusts
+]
+
+HOURLY_PARAMS = [
+    'temperature_2m',
+    'precipitation',
+    'precipitation_probability',
+    'cloud_cover',
+    'visibility',
+    'wind_speed_10m',
+    'uv_index',
+]
+
+DAILY_PARAMS = [
+    'temperature_2m_max',       # Max temperature
+    'temperature_2m_min',       # Min temperature
+    'sunrise',                  # Sunrise time
+    'sunset',                   # Sunset time
+    'precipitation_sum',        # Total precipitation
+    'rain_sum',                 # Total rain
+    'precipitation_probability_max',
+    'wind_speed_10m_max',
+]
+
+# Print them all
+print("CURRENT WEATHER OPTIONS:")
+for param in CURRENT_WEATHER_PARAMS:
+    print(f"  - {param}")
+
+print("\nHOURLY FORECAST OPTIONS:")
+for param in HOURLY_PARAMS:
+    print(f"  - {param}")
+
+print("\nDAILY FORECAST OPTIONS:")
+for param in DAILY_PARAMS:
+    print(f"  - {param}")

@@ -1106,86 +1106,106 @@
 # Handle network error gracefully.
 
 
-import json
-from os import remove
+# import json
+# import requests
+# import os
+# from datetime import datetime
+#
+#
+#
+# def fetch_weather_data(city_coordinate):
+#     url = 'https://api.open-meteo.com/v1/forecast'
+#
+#     params = {
+#         'latitude': city_coordinate['lat'],
+#         'longitude': city_coordinate['long'],
+#         'current': 'temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m',
+#         'daily': 'temperature_2m_max,temperature_2m_min',
+#         'timezone': 'auto'
+#     }
+#
+#     try:
+#         response = requests.get(url, params=params, timeout=10)
+#
+#         if response.status_code == 200:
+#             data = response.json()
+#             print(f"{city_coordinate['name']}:")
+#             current = data['current']
+#             print(f"Temperature: {current['temperature_2m']}°C")
+#             print(f"Humidity: {current['relative_humidity_2m']}%")
+#             print(f"Feels like: {current['apparent_temperature']}°C")
+#             print(f"Wind Speed: {current['wind_speed_10m']}km/h")
+#             daily = data['daily']
+#             print('\nDaily data: ')
+#             print(f"Max Temp: {daily['temperature_2m_max']}°C")
+#             print(f"Min Temp: {daily['temperature_2m_min']}°C")
+#             return data
+#
+#     except Exception as e:
+#         print(f'Error: {e}')
+#         return None
+#
+#
+# # weather_data = fetch_weather_data({'name': 'Dhaka', 'lat': 23.8103, 'long': 90.4125})
+#
+# city_name = input("Enter your city name:").strip()
+# latitude = float(input("Enter latitude: ").strip())
+# longitude = float(input("Enter longitude: ").strip())
+#
+# weather_data = fetch_weather_data({'name': city_name, 'lat': latitude, 'long': longitude})
+#
+# if weather_data:
+#     filename = 'weather.json'
+#     if os.path.exists(filename):
+#         try:
+#             with open(filename, 'r') as f:
+#                 existing_data = json.load(f)
+#                 if not isinstance(existing_data, list):
+#                     existing_data = [existing_data]
+#         except json.JSONDecodeError:
+#                 existing_data = []
+#     else:
+#         existing_data = []
+#
+# weather_data['city_name'] = city_name
+# weather_data['fetched_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# #
+# # is_duplicate = any(
+# #         entry.get('city_name') == weather_data['city_name'] and
+# #         entry.get('current', {}).get('temperature_2m') == weather_data.get('current', {}).get('temperature_2m') and
+# #         entry.get('current', {}).get('relative_humidity_2m') == weather_data.get('current', {}).get('relative_humidity_2m')
+# #         for entry in existing_data
+# #     )
+#
+#
+# is_duplicate = False
+#
+# for entry in existing_data:
+#     if (entry.get('city_name') == weather_data['city_name'] and
+#             entry.get('current', {}).get('temperature_2m') == weather_data.get('current', {}).get('temperature_2m') and
+#             entry.get('current', {}).get('relative_humidity_2m') == weather_data.get('current', {}).get(
+#                 'relative_humidity_2m')):
+#         is_duplicate = True
+#         break  # Found a match, stop checking
+#
+# if is_duplicate:
+#     print(f"\nDuplicate data found for {city_name}. Skipping save.")
+# else:
+#     existing_data.append(weather_data)
+#     with open(filename, 'w', encoding='utf-8') as f:
+#         json.dump(existing_data, f, indent=2, ensure_ascii=False)
+#     print(f"\nWeather data for {city_name} saved to {filename}")
 
-import requests
-import os
-from datetime import datetime
-
-
-
-def fetch_weather_data(city_coordinate):
-    url = 'https://api.open-meteo.com/v1/forecast'
-
-    params = {
-        'latitude': city_coordinate['lat'],
-        'longitude': city_coordinate['long'],
-        'current': 'temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m',
-        'daily': 'temperature_2m_max,temperature_2m_min',
-        'timezone': 'auto'
-    }
-
-    try:
-        response = requests.get(url, params=params, timeout=10)
-
-        if response.status_code == 200:
-            data = response.json()
-            print(f"{city_coordinate['name']}:")
-            current = data['current']
-            print(f"Temperature: {current['temperature_2m']}°C")
-            print(f"Humidity: {current['relative_humidity_2m']}%")
-            print(f"Feels like: {current['apparent_temperature']}°C")
-            print(f"Wind Speed: {current['wind_speed_10m']}km/h")
-            daily = data['daily']
-            print('\nDaily data: ')
-            print(f"Max Temp: {daily['temperature_2m_max']}°C")
-            print(f"Min Temp: {daily['temperature_2m_min']}°C")
-            return data
-
-    except Exception as e:
-        print(f'Error: {e}')
-        return None
-
-
-# weather_data = fetch_weather_data({'name': 'Dhaka', 'lat': 23.8103, 'long': 90.4125})
-
-city_name = input("Enter your city name:").strip()
-latitude = float(input("Enter latitude: ").strip())
-longitude = float(input("Enter longitude: ").strip())
-
-weather_data = fetch_weather_data({'name': city_name, 'lat': latitude, 'long': longitude})
-
-if weather_data:
-    filename = 'weather.json'
-    if os.path.exists(filename):
-        try:
-            with open(filename, 'r') as f:
-                existing_data = json.load(f)
-                if not isinstance(existing_data, list):
-                    existing_data = [existing_data]
-        except json.JSONDecodeError:
-                existing_data = []
-    else:
-        existing_data = []
-
-weather_data['city_name'] = city_name
-weather_data['fetched_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-is_duplicate = any(
-        entry.get('city_name') == weather_data['city_name'] and
-        entry.get('current', {}).get('temperature_2m') == weather_data.get('current', {}).get('temperature_2m') and
-        entry.get('current', {}).get('relative_humidity_2m') == weather_data.get('current', {}).get('relative_humidity_2m')
-        for entry in existing_data
-    )
-
-if is_duplicate:
-    print(f"\nDuplicate data found for {city_name}. Skipping save.")
-else:
-    existing_data.append(weather_data)
-    with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(existing_data, f, indent=2, ensure_ascii=False)
-    print(f"\nWeather data for {city_name} saved to {filename}")
-
-
-
+# copy_part.py
+# start_line = 1103
+# end_line = 1197
+#
+# with open("JSON.py", "r", encoding="utf-8") as src:
+#     lines = src.readlines()
+#
+# code_snippet = lines[start_line - 1:end_line]
+#
+# with open("weather.py", "w", encoding="utf-8") as dest:
+#     dest.writelines(code_snippet)
+#
+# print("Selected code saved to weather_fetcher.py")

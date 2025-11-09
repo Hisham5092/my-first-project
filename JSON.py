@@ -1,4 +1,6 @@
 # File Handling
+import requests
+
 
 # f = open("Test File.txt", "x")
 # with open("Test File.txt", "a") as f:
@@ -1209,3 +1211,132 @@
 #     dest.writelines(code_snippet)
 #
 # print("Selected code saved to weather_fetcher.py")
+
+
+# NewsAPI
+
+# import requests
+# import json
+# import os
+#
+# def fetch_news():
+#     url = 'https://newsapi.org/v2/top-headlines'
+#     headers = {'Authorization': 'Bearer 8d51636b5df94e5cbf8e8cc5eaf81c42'}
+#     params = {"country": "us", "pageSize": 5}
+#
+#     try:
+#         response = requests.get(url, headers=headers, params=params)
+#         if response.status_code == 200:
+#             data = response.json()
+#             return data.get('articles', [])
+#         else:
+#             print(f"Request failed with status {response.status_code}")
+#             return []
+#     except Exception as e:
+#         print(f"Error: {e}")
+#         return []
+#
+#
+# def save_news_to_file(new_articles, filename="news.json"):
+#     # Load existing data
+#     if os.path.exists(filename):
+#         try:
+#             with open(filename, "r", encoding="utf-8") as f:
+#                 existing_data = json.load(f)
+#                 if not isinstance(existing_data, list):
+#                     existing_data = []
+#         except json.JSONDecodeError:
+#             existing_data = []
+#     else:
+#         existing_data = []
+#
+#     # Get all existing titles to check duplicates
+#     existing_titles = {item['title'] for item in existing_data if 'title' in item}
+#
+#     # Filter out duplicates
+#     unique_articles = [a for a in new_articles if a['title'] not in existing_titles]
+#
+#     # Add an ID (continuous numbering)
+#     next_id = len(existing_data) + 1
+#     for article in unique_articles:
+#         article['id'] = next_id
+#         next_id += 1
+#
+#     # Append new unique articles
+#     existing_data.extend(unique_articles)
+#
+#     # Save updated file
+#     with open(filename, "w", encoding="utf-8") as f:
+#         json.dump(existing_data, f, indent=2, ensure_ascii=False)
+#
+#     print(f"{len(unique_articles)} new articles saved to {filename}")
+#     print(f"Total articles stored: {len(existing_data)}")
+#
+#
+# if __name__ == "__main__":
+#     articles = fetch_news()
+#     if articles:
+#         save_news_to_file(articles)
+
+
+# Agify Age
+
+# import requests
+# import json
+#
+# # 1️⃣ List of names
+# names = ["Hisham", "Aisha", "John", "Maria", "Takeshi"]
+#
+# # 2️⃣ Create an empty list to store results
+# results = []
+#
+# # 3️⃣ Loop through each name and make API call
+# for name in names:
+#     response = requests.get(f"https://api.agify.io?name={name}")
+#
+#     # check if request worked
+#     if response.status_code == 200:
+#         data = response.json()
+#         # example of data: {'name': 'Hisham', 'age': 28, 'count': 1123}
+#         results.append(data)
+#         print(f"Fetched age for {name}: {data.get('age')}")
+#     else:
+#         print(f"Failed to fetch data for {name}")
+#
+# # 4️⃣ Save results to JSON file
+# with open("ages.json", "w", encoding="utf-8") as f:
+#     json.dump(results, f, indent=4)
+#
+# print("\nDone! All data saved to ages.json")
+
+
+# Webhook
+
+# import requests
+# import json
+#
+# # 1️⃣ Your test webhook (you can generate a new one at https://webhook.site)
+# webhook_url = "https://webhook.site/your-unique-id-here"
+#
+# # 2️⃣ Sample data (payload) to send
+# payload = {
+#     "name": "Hisham",
+#     "project": "Python Automation",
+#     "status": "Learning Webhooks",
+#     "day": 11
+# }
+#
+# # 3️⃣ Send POST request
+# try:
+#     response = requests.post(webhook_url, json=payload)
+#     print(f"Sent successfully! Status: {response.status_code}")
+# except Exception as e:
+#     print(f"Failed to send data: {e}")
+#
+# # 4️⃣ Optional: print what we sent (for clarity)
+# print("Payload sent:")
+# print(json.dumps(payload, indent=4))
+
+
+
+

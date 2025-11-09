@@ -5,8 +5,8 @@ from datetime import datetime
 
 
 def fetch_weather_data(city_coordinate):
+    """Fetch weather data from the Open-Meteo API."""
     url = 'https://api.open-meteo.com/v1/forecast'
-
     params = {
         'latitude': city_coordinate['lat'],
         'longitude': city_coordinate['long'],
@@ -28,23 +28,30 @@ def fetch_weather_data(city_coordinate):
         print(f"Wind Speed: {current.get('wind_speed_10m')} km/h")
 
         daily = data.get('daily', {})
-        print('\nDaily Forecast:')
+        print("\nDaily data:")
         print(f"Max Temp: {daily.get('temperature_2m_max')}")
         print(f"Min Temp: {daily.get('temperature_2m_min')}")
 
         return data
 
     except requests.RequestException as e:
-        print(f"API Error: {e}")
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-
-    return None
+        print(f"Error fetching data: {e}")
+        return None
 
 
-def save_weather_data(weather_data, city_name):
-    filename = 'weather.json'
+def main():
+    city_name = input("Enter your city name: ").strip()
+    latitude = float(input("Enter latitude: ").strip())
+    longitude = float(input("Enter longitude: ").strip())
 
+    weather_data = fetch_weather_data({'name': city_name, 'lat': latitude, 'long': longitude})
+    if not weather_data:
+        return
+
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(BASE_DIR, "weather.json")
+
+    # Load existing data safely
     if os.path.exists(filename):
         try:
             with open(filename, 'r', encoding='utf-8') as f:
@@ -56,11 +63,11 @@ def save_weather_data(weather_data, city_name):
     else:
         existing_data = []
 
+    # Add metadata
     weather_data['city_name'] = city_name
     weather_data['fetched_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     is_duplicate = False
-
     for entry in existing_data:
         if (entry.get('city_name') == weather_data['city_name'] and
                 entry.get('current', {}).get('temperature_2m') == weather_data.get('current', {}).get('temperature_2m') and
@@ -68,7 +75,6 @@ def save_weather_data(weather_data, city_name):
                     'relative_humidity_2m')):
             is_duplicate = True
             break
-
     if is_duplicate:
         print(f"\nDuplicate data found for {city_name}. Skipping save.")
     else:
@@ -77,18 +83,7 @@ def save_weather_data(weather_data, city_name):
             json.dump(existing_data, f, indent=2, ensure_ascii=False)
         print(f"\nWeather data for {city_name} saved to {filename}")
 
-
-def main():
-    city_name = input("Enter your city name: ").strip()
-    latitude = float(input("Enter latitude: ").strip())
-    longitude = float(input("Enter longitude: ").strip())
-
-    weather_data = fetch_weather_data({'name': city_name, 'lat': latitude, 'long': longitude})
-
-    if weather_data:
-        save_weather_data(weather_data, city_name)
-    else:
-        print("No data fetched.")
+    print("\nCurrent Working Directory:", os.getcwd())
 
 
 if __name__ == "__main__":

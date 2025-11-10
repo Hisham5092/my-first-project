@@ -1221,7 +1221,7 @@ import requests
 #
 # def fetch_news():
 #     url = 'https://newsapi.org/v2/top-headlines'
-#     headers = {'Authorization': 'Bearer 8d51636b5df94e5cbf8e8cc5eaf81c42'}
+#     headers = {'Authorization': 'Bearer API_KEY'}
 #     params = {"country": "us", "pageSize": 5}
 #
 #     try:

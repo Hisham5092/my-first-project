@@ -1202,7 +1202,7 @@ import requests
 # start_line = 1103
 # end_line = 1197
 #
-# with open("JSON.py", "r", encoding="utf-8") as src:
+# with open("json.py", "r", encoding="utf-8") as src:
 #     lines = src.readlines()
 #
 # code_snippet = lines[start_line - 1:end_line]
@@ -1251,10 +1251,16 @@ import requests
 #         existing_data = []
 #
 #     # Get all existing titles to check duplicates
-#     existing_titles = {item['title'] for item in existing_data if 'title' in item}
+#     existing_titles = set()
+#     for item in existing_data:
+#         if 'title' in item:
+#             existing_titles.add(item['title'])
 #
-#     # Filter out duplicates
-#     unique_articles = [a for a in new_articles if a['title'] not in existing_titles]
+#     # Filter out duplicates using a normal loop
+#     unique_articles = []
+#     for article in new_articles:
+#         if 'title' in article and article['title'] not in existing_titles:
+#             unique_articles.append(article)
 #
 #     # Add an ID (continuous numbering)
 #     next_id = len(existing_data) + 1
@@ -1277,6 +1283,7 @@ import requests
 #     articles = fetch_news()
 #     if articles:
 #         save_news_to_file(articles)
+
 
 
 # Agify Age
@@ -1310,33 +1317,94 @@ import requests
 # print("\nDone! All data saved to ages.json")
 
 
-# Webhook
-
+# Webhook Sending Data
+#
 # import requests
 # import json
 #
-# # 1️⃣ Your test webhook (you can generate a new one at https://webhook.site)
-# webhook_url = "https://webhook.site/your-unique-id-here"
+# webhook_url = "https://webhook.site/9084801e-4737-4f38-a9b4-11ca7f9f4109"
 #
-# # 2️⃣ Sample data (payload) to send
+# name = input("Enter your name:").strip()
+# project = input("Enter your project:").strip()
+# status = input("Enter your project status:").strip()
+# day = int(input("Enter your day no:").strip())
+#
 # payload = {
-#     "name": "Hisham",
-#     "project": "Python Automation",
-#     "status": "Learning Webhooks",
-#     "day": 11
+#     "name": name,
+#     "project": project,
+#     "status": status,
+#     "day": day
 # }
 #
-# # 3️⃣ Send POST request
 # try:
 #     response = requests.post(webhook_url, json=payload)
 #     print(f"Sent successfully! Status: {response.status_code}")
 # except Exception as e:
 #     print(f"Failed to send data: {e}")
 #
-# # 4️⃣ Optional: print what we sent (for clarity)
 # print("Payload sent:")
 # print(json.dumps(payload, indent=4))
 
 
+# RegEx & API Data
+
+import requests
+import re
+import json
+import os
+
+def fetch_quote():
+    """Fetch a random quote from the Quotable API"""
+    url = "https://api.api-ninjas.com/v2/quotes?categories=success,wisdom"
+    try:
+        response = requests.get(url, timeout=10)
+        if response.status_code == 200:
+            data = response.json()
+            return {
+                "content": data.get("content", ""),
+                "author": data.get("author", "Unknown")
+            }
+    except Exception as e:
+        print(f"Error fetching quote: {e}")
+    return None
+
+
+def clean_text(text):
+    """Remove unwanted symbols using regex"""
+    # Keep only letters, numbers, punctuation, and spaces
+    cleaned = re.sub(r"[^a-zA-Z0-9.,!?'\s]", "", text)
+    return cleaned.strip()
+
+
+def save_quotes(quotes, filename="quotes.json"):
+    """Save cleaned quotes to a file"""
+    if os.path.exists(filename):
+        try:
+            with open(filename, "r", encoding="utf-8") as f:
+                existing_data = json.load(f)
+        except json.JSONDecodeError:
+            existing_data = []
+    else:
+        existing_data = []
+
+    existing_data.extend(quotes)
+
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(existing_data, f, indent=2, ensure_ascii=False)
+
+    print(f"✅ Saved {len(quotes)} quotes to {filename}")
+
+
+if __name__ == "__main__":
+    all_quotes = []
+
+    for _ in range(5):  # Fetch 5 random quotes
+        quote = fetch_quote()
+        if quote:
+            quote["content"] = clean_text(quote["content"])
+            all_quotes.append(quote)
+
+    if all_quotes:
+        save_quotes(all_quotes)
 
 

@@ -17,7 +17,7 @@ color: white;
 font-family: Roboto;
 font-size: 25px;
 font-weight: normal;
-padding-left: 60px;
+padding-left: 20px;
 text-align : left;
 color: white;
 text-decoration: none;
@@ -27,7 +27,7 @@ text-decoration: none;
 font-family: Roboto;
 font-size: 25px;
 font-weight: normal;
-padding-left: 60px;
+padding-left: 20px;
 text-align : left;
 color: white;
 text-decoration: none;
@@ -37,7 +37,7 @@ text-decoration: none;
 font-family: Roboto;
 font-size: 25px;
 font-weight: normal;
-padding-left: 60px;
+padding-left: 20px;
 text-align : left;
 color: white;
 text-decoration: none;
@@ -47,7 +47,7 @@ text-decoration: none;
 font-family: Roboto;
 font-size: 25px;
 font-weight: normal;
-padding-left: 60px;
+padding-left: 20px;
 text-align : left;
 color: white;
 text-decoration: none;
@@ -57,7 +57,7 @@ text-decoration: none;
 font-family: Roboto;
 font-size: 25px;
 font-weight: normal;
-padding-left: 60px;
+padding-left: 20px;
 text-align : left;
 color: white;
 text-decoration: none;
@@ -67,7 +67,7 @@ text-decoration: none;
 font-family: Roboto;
 text-align : left;
 color: black;
-margin-left: 430px;
+margin-left: 80px;
 }
 
 #p1{
@@ -76,3 +76,24 @@ font-family: Roboto;
 font-size: 30px;
 }
 
+#section1{
+position: relative;
+bottom: 21px;
+font-family: Roboto;
+height: 100px;
+width: 100px;
+background-color: blue;
+border: 2px solid black;
+color: white;
+display: inline-block;
+}
+
+#section2{
+font-family: Roboto;
+height: 100px;
+width: 100px;
+background-color: blue;
+border: 2px solid black;
+color: white;
+display: inline-block;
+}

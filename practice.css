@@ -82,18 +82,96 @@ bottom: 21px;
 font-family: Roboto;
 height: 100px;
 width: 100px;
-background-color: blue;
+background-color: DodgerBlue;
 border: 2px solid black;
 color: white;
 display: inline-block;
+transition-property: all;
+transition-duration: 2s;
+transition-timing-function: steps;
+}
+
+#section1:hover{
+background-color: yellow;
+color: black;
+}
+
+#section1:active{
+background-color: green;
+color: white;
 }
 
 #section2{
 font-family: Roboto;
 height: 100px;
 width: 100px;
-background-color: blue;
+background-color: MediumSeaGreen;
 border: 2px solid black;
 color: white;
+display: inline-block;
+}
+
+#flexbox{
+height: 300px;
+width: 1200px;
+border: 2px solid black;
+display: flex;
+flex-direction: row;
+justify-content: center;
+/*flex-wrap: wrap;*/
+align-items: flex-start;
+/* align-content: center; */
+
+}
+
+#flexbox1{
+height: 50px;
+width: 150px;
+font-family: Roboto;
+background-color: DodgerBlue;
+color: white;
+border: 2px solid black;
+display: inline-block;
+}
+
+#flexbox2{
+height: 100px;
+width: 150px;
+font-family: Roboto;
+background-color: Tomato;
+color: white;
+border: 2px solid black;
+display: inline-block;
+/*align-self: flex-end;*/
+flex-grow: 1;
+}
+
+#flexbox3{
+height: 50px;
+width: 150px;
+font-family: Roboto;
+background-color: MediumSeaGreen;
+color: white;
+border: 2px solid black;
+display: inline-block;
+}
+
+#flexbox4{
+height: 50px;
+width: 150px;
+font-family: Roboto;
+background-color: SlateBlue;
+color: white;
+border: 2px solid black;
+display: inline-block;
+}
+
+#flexbox5{
+height: 50px;
+width: 150px;
+font-family: Roboto;
+background-color: Violet;
+color: white;
+border: 2px solid black;
 display: inline-block;
 }

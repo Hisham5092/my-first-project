@@ -78,37 +78,71 @@ font-size: 30px;
 
 #section1{
 position: relative;
-bottom: 21px;
+bottom: 15px;
 font-family: Roboto;
+font-size: 12px;
 height: 100px;
 width: 100px;
 background-color: DodgerBlue;
 border: 2px solid black;
 color: white;
 display: inline-block;
-transition-property: all;
-transition-duration: 2s;
-transition-timing-function: steps;
+/*transition-property: all;
+transition-duration: 1s;
+transition-timing-function: steps;*/
+animation-name: colorAnimate;
+animation-duration: 2s;
+animation-timing-function: ease-in;
+animation-delay: 1s;
+animation-iteration-count: 5;
+
+}
+
+@keyframes colorAnimate{
+from {background-color: DodgerBlue;}
+to {background-color: yellow;}
 }
 
 #section1:hover{
-background-color: yellow;
+/*background-color: yellow;
 color: black;
+font-size: 15px;*/
+
 }
 
 #section1:active{
-background-color: green;
-color: white;
+/*background-color: green;
+color: white;*/
 }
 
 #section2{
 font-family: Roboto;
+margin-left: 20px;
+font-size: 12px;
 height: 100px;
 width: 100px;
 background-color: MediumSeaGreen;
 border: 2px solid black;
 color: white;
 display: inline-block;
+}
+
+.border{
+height: 200px;
+width: 200px;
+border-radius: 50%;
+border: 4px solid #FFE66D;
+border-top: 4px solid #4ECDC4;
+animation: spinAnimate 3s ease-in 0s infinite normal;
+}
+
+@keyframes spinAnimate{
+    from{
+        transform: rotate(0deg);
+    }
+    to {
+    transform: rotate(360deg);
+    }
 }
 
 #flexbox{
